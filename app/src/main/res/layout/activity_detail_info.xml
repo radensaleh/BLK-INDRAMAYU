@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.DetailInfoActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/ll_header"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_info_blue_24dp"
+                    android:text=" Detail Info"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"/>
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp"
+            android:layout_width="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                app:cardCornerRadius="15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imgInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/contohberita1"/>
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="170dp"
+                        android:background="@color/colorLightGreen" />
+
+                    <TextView
+                        android:id="@+id/tvJudul"
+                        style="@style/TextAppearance.AppCompat.Subhead"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="8dp"
+                        android:textStyle="bold"
+                        android:paddingTop="175dp"
+                        android:paddingRight="8dp"
+                        android:paddingLeft="8dp"
+                        android:text="JUDUL INFO"
+                        android:textSize="18dp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_alignParentLeft="true" />
+
+                    <LinearLayout
+                        android:id="@+id/llinfo"
+                        android:layout_below="@id/tvJudul"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kategori "
+                            android:paddingLeft="8dp"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="15dp" />
+
+                        <TextView
+                            android:id="@+id/tvKategori"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvJudul"
+                            android:text="Berita"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:paddingRight="8dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginTop="15dp"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvDeskripsi"
+                android:layout_below="@id/cvInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="15dp">
+
+                <RelativeLayout
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_marginTop="15dp"
+                        android:id="@+id/dsk"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Deskripsi"
+                        android:layout_marginLeft="8dp"
+                        android:paddingLeft="8dp"/>
+
+
+                    <TextView
+                        android:id="@+id/tvDeskripsi"
+                        style="@style/TextAppearance.AppCompat.Subhead"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/dsk"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="8dp"
+                        android:padding="8dp"
+                        android:text="Rabu 20 Agustus 2018 Berita Ini merupakan bla bla bla bla dan bla bla bla bla"
+                        android:textSize="14dp"
+                        android:layout_alignParentLeft="true" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

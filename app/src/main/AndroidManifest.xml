@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.proyek2.blkindramayu">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo_blkindramayu"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo_blkindramayu"
+        android:supportsRtl="true"
+        android:theme="@style/NoBarAppTheme">
+        <activity android:name=".activity.SemuaInfoActivity"></activity>
+        <activity
+            android:name=".activity.RegistrasiActivity"
+            android:theme="@style/NoBarLoginRegis" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/NoBarLoginRegis" />
+        <activity android:name=".activity.DetailInfoActivity" />
+        <activity android:name=".activity.BerandaActivity" />
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

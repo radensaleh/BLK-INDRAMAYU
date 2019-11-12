@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/refreshLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.BerandaFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="225dp">
+
+        <RelativeLayout
+            android:id="@+id/RLHeader"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/LLHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgPemkot"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/logo_indramayu" />
+
+                <ImageView
+                    android:id="@+id/imgBLK"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/logo_blkindramayu" />
+
+                <TextView
+                    android:id="@+id/tvBLK"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" BLK INDRAMAYU "
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"/>
+
+                <ImageView
+                    android:id="@+id/imgScan"
+                    android:layout_marginLeft="80dp"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/scan" />
+            </LinearLayout>
+
+            <io.supercharge.shimmerlayout.ShimmerLayout
+                android:layout_below="@id/LLHeader"
+                android:id="@+id/shimmerPoster"
+                app:shimmer_animation_duration="1500"
+                android:layout_centerInParent="true"
+                android:foregroundGravity="center"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:clipToPadding="false"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <include layout="@layout/shimmer_poster"/>
+                    <include layout="@layout/shimmer_poster"/>
+                    <include layout="@layout/shimmer_poster"/>
+                </LinearLayout>
+
+            </io.supercharge.shimmerlayout.ShimmerLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@id/LLHeader"
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:layout_centerInParent="true"
+                android:foregroundGravity="center">
+
+            </androidx.viewpager.widget.ViewPager>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_below="@id/cvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvBerita"
+                app:cardBackgroundColor="#edf9fe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="15dp"
+                    android:id="@+id/tvBeritaKosong"
+                    android:padding="10dp"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TIDAK ADA BERITA"
+                    android:layout_gravity="center"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/LLBerita"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgBerita"
+                            android:layout_width="16dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/beritabaru" />
+
+                        <TextView
+                            android:id="@+id/tvBerita"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="12dp"
+                            android:text="Berita Terbaru"
+                            android:textColor="@color/colorLightBlue"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvSemuaBerita"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="140dp"
+                            android:layout_marginLeft="140dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="12dp"
+                            android:text="Semua"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <io.supercharge.shimmerlayout.ShimmerLayout
+                        android:id="@+id/shimmerInfo"
+                        app:shimmer_animation_duration="1500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp">
+
+                            <include layout="@layout/shimmer_info"/>
+                            <include layout="@layout/shimmer_info"/>
+                            <include layout="@layout/shimmer_info"/>
+                        </LinearLayout>
+
+                    </io.supercharge.shimmerlayout.ShimmerLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvBerita"
+                            android:scrollbars="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvLoker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="15dp"
+                    android:id="@+id/tvLokerKosong"
+                    android:padding="10dp"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TIDAK ADA LOWONGAN KERJA"
+                    android:layout_gravity="center"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/LLLoker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgLoker"
+                            android:layout_width="16dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/loker" />
+
+                        <TextView
+                            android:id="@+id/tvLoker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="12dp"
+                            android:text="Lowongan Kerja"
+                            android:textColor="@color/colorLightBlue"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvSemuaLoker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="125dp"
+                            android:layout_marginLeft="125dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="12dp"
+                            android:text="Semua"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <io.supercharge.shimmerlayout.ShimmerLayout
+                        android:id="@+id/shimmerLoker"
+                        app:shimmer_animation_duration="1500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp">
+
+                            <include layout="@layout/shimmer_info"/>
+                            <include layout="@layout/shimmer_info"/>
+                            <include layout="@layout/shimmer_info"/>
+                        </LinearLayout>
+
+                    </io.supercharge.shimmerlayout.ShimmerLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvLoker"
+                            android:scrollbars="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
