@@ -85,7 +85,6 @@
                 android:paddingTop="16dp"
                 android:ems="10"
                 android:autofillHints=""
-                android:inputType="phone"
                 android:hint="Masukan Username"
                 tools:targetApi="o" />
 

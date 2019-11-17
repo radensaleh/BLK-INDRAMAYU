@@ -58,9 +58,9 @@ class BerandaFragment : Fragment() {
             Toast.makeText(context, "Semua Loker", Toast.LENGTH_SHORT).show()
         }
 
-        imgScan.setOnClickListener {
-            Toast.makeText(context, "Scan", Toast.LENGTH_SHORT).show()
-        }
+//        imgScan.setOnClickListener {
+//            Toast.makeText(context, "Scan", Toast.LENGTH_SHORT).show()
+//        }
 
     }
 
@@ -73,7 +73,7 @@ class BerandaFragment : Fragment() {
         imgPemkot.startAnimation(upToDown)
         imgBLK.startAnimation(upToDown)
         tvBLK.startAnimation(leftRight)
-        imgScan.startAnimation(upToDown)
+//        imgScan.startAnimation(upToDown)
         viewPager.startAnimation(downToup)
         tvBerita.startAnimation(leftRight)
         tvSemuaBerita.startAnimation(rightLeft)

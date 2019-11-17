@@ -13,7 +13,7 @@ class NetworkConfig {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        var okhttp = OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor)
+        val okhttp = OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor)
             .connectTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .retryOnConnectionFailure(true)

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.proyek2.blkindramayu.BuildConfig
@@ -21,12 +20,13 @@ class AdapterInfo(private val infoLists : List<DataInfo>, val context : Context)
             itemView.tvTgl.text = get.tgl_upload
 
             Glide.with(context)
-                .load(BuildConfig.IMAGE + "/konten/" + get.foto)
+                .load("${BuildConfig.IMAGE}/konten/${get.foto}")
                 .into(itemView.imgFoto)
 
             itemView.cvInfo.setOnClickListener {
-                Toast.makeText(context, get.id, Toast.LENGTH_SHORT).show()
-                context.startActivity(Intent(context, DetailInfoActivity::class.java))
+                val intent = Intent(context, DetailInfoActivity::class.java)
+                intent.putExtra("id", get.id)
+                context.startActivity(intent)
             }
         }
     }
@@ -41,7 +41,7 @@ class AdapterInfo(private val infoLists : List<DataInfo>, val context : Context)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindView(infoLists.get(position), context)
+        holder.bindView(infoLists[position], context)
     }
 
 }

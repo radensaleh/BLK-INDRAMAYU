@@ -15,7 +15,7 @@ abstract class AppDataBase : RoomDatabase() {
         fun getInstance(context : Context) : AppDataBase? {
             if(INSTANCE == null){
                 synchronized(AppDataBase::class){
-                    INSTANCE = Room.databaseBuilder(context.applicationContext, AppDataBase::class.java, "memberdata.db").build()
+                    INSTANCE = Room.databaseBuilder(context.applicationContext, AppDataBase::class.java, "dbMember").allowMainThreadQueries().build()
                 }
             }
 
