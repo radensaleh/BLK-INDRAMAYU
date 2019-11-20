@@ -18,8 +18,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         //Base Api
-        buildConfigField "String", "BASE_URL", '"http://192.168.43.197:8000/api/"'
-        buildConfigField "String", "IMAGE", '"http://192.168.43.197:8000/images/"'
+        buildConfigField "String", "BASE_URL", '"http://192.168.1.155:8000/api/"'
+        buildConfigField "String", "IMAGE", '"http://192.168.1.155:8000/images/"'
         buildConfigField "String", "CLOUDIMAGES", '"http://res.cloudinary.com/harsoft-development/image/upload/c_fit,h_1080,w_1920/"'
 
     }

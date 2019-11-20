@@ -56,12 +56,12 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"/>
 
-                <ImageView
-                    android:id="@+id/imgScan"
-                    android:layout_marginLeft="80dp"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/scan" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgScan"-->
+<!--                    android:layout_marginLeft="80dp"-->
+<!--                    android:layout_width="25dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:src="@drawable/scan" />-->
             </LinearLayout>
 
             <io.supercharge.shimmerlayout.ShimmerLayout

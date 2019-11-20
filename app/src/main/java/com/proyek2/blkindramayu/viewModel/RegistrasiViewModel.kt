@@ -8,22 +8,19 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel : ViewModel() {
+class RegistrasiViewModel : ViewModel(){
     private var data = MutableLiveData<Res>()
     private var status = MutableLiveData<Boolean>()
     private var res = MutableLiveData<String>()
 
-    private lateinit var user : String
-    private lateinit var pass : String
-
-    private fun login(){
+    private fun registrasi(nik: String, nama: String, tmptLahir: Int, tglLahir: String, jk: String, idProvinsi: Int, idKota: Int, alamat: String, kodepos: Int, username: String, password: String, email: String, status_member : Int){
         status.value = true
 
-        NetworkConfig().api().loginMember(user, pass).enqueue(object : Callback<Res>{
+        NetworkConfig().api().registrasiMember(nik,nama,tmptLahir,tglLahir,jk,idProvinsi,idKota,alamat,kodepos,username,password,email,status_member).enqueue(object : Callback<Res>{
             override fun onFailure(call: Call<Res>, t: Throwable) {
                 status.value = true
                 data.value = null
-                res.value = t.message.toString()
+                res.value = t.message
             }
 
             override fun onResponse(call: Call<Res>, response: Response<Res>) {
@@ -38,20 +35,13 @@ class LoginViewModel : ViewModel() {
         })
     }
 
-    fun setData(username : String, password : String) : MutableLiveData<Res>{
-        this.user = username
-        this.pass = password
-
-        login()
+    fun setData(nik : String, nama : String, tmptLahir : Int, tglLahir : String, jk : String, idProvinsi : Int, idKota : Int, alamat : String, kodepos : Int, username : String, password : String, email : String, status : Int) : MutableLiveData<Res> {
+        registrasi(nik,nama,tmptLahir,tglLahir,jk,idProvinsi,idKota,alamat,kodepos,username,password,email,status)
 
         return data
     }
 
-//    fun getStatus() : MutableLiveData<Boolean>{
-//        return status
-//    }
-
-    fun getRes() : MutableLiveData<String>{
+    fun getResponse() : MutableLiveData<String> {
         return res
     }
 

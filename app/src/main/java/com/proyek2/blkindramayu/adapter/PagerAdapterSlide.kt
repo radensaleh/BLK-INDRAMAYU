@@ -30,7 +30,7 @@ class PagerAdapterSlide(val context : Context, val posterList : List<DataPoster>
             cardView.visibility = View.GONE
 
             Glide.with(context)
-                .load(BuildConfig.IMAGE + "/konten/" + poster.poster)
+                .load("${BuildConfig.IMAGE}/konten/${poster.poster}")
                 .into(imgPoster)
 
             container.addView(view, 0)
@@ -43,7 +43,7 @@ class PagerAdapterSlide(val context : Context, val posterList : List<DataPoster>
             tvJudulPoster.text = poster.judul
 
             Glide.with(context)
-                .load(BuildConfig.IMAGE + "/konten/" + poster.poster)
+                .load("${BuildConfig.IMAGE}/konten/${poster.poster}")
                 .into(imgPoster)
 
             container.addView(view, 0)

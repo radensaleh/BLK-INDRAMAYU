@@ -2,31 +2,53 @@ package com.proyek2.blkindramayu.activity
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.RadioButton
-import android.widget.Toast
+import android.os.Handler
+import android.view.View
+import android.widget.*
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.ViewModelProviders
 import com.proyek2.blkindramayu.R
+import com.proyek2.blkindramayu.model.Kota
+import com.proyek2.blkindramayu.model.Provinsi
+import com.proyek2.blkindramayu.network.NetworkConfig
+import com.proyek2.blkindramayu.viewModel.RegistrasiViewModel
 import kotlinx.android.synthetic.main.activity_registrasi.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
+import kotlin.collections.ArrayList
 
 class RegistrasiActivity : AppCompatActivity() {
 
     private var context : Context? = null
     private var jk = ""
     private var tglLahir = ""
+    private var validNIK = false
     private var validUsername = false
     private var validPassword = false
     private var verifPassword = false
+    private var tmptLahir : String? = null
+    private var idKota : String? = null
+    private var idProvinsi : String? = null
+    private lateinit var viewModelRegister : RegistrasiViewModel
+    private lateinit var loading : Dialog
+    private lateinit var alertDialog : Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registrasi)
 
         context = this
+        loading = Dialog(this)
+        alertDialog = Dialog(this)
 
         tvLogin.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java)
@@ -34,7 +56,125 @@ class RegistrasiActivity : AppCompatActivity() {
             finish()
         }
 
+        getKota()
+        getProvinsi()
+
         validationRequired()
+    }
+
+    private fun getKota(){
+        NetworkConfig().api().getKota().enqueue(object : Callback<List<Kota>>{
+            override fun onFailure(call: Call<List<Kota>>, t: Throwable) {
+                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<List<Kota>>, response: Response<List<Kota>>) {
+                if(response.isSuccessful){
+                    val data : List<Kota> = response.body()!!
+
+                    val listSpinner = ArrayList<String>()
+                    for (i in data.indices) {
+                        listSpinner.add(data[i].type!!+ " " + data[i].kota!!)
+                    }
+
+                    val adapter = ArrayAdapter(
+                        applicationContext, R.layout.support_simple_spinner_dropdown_item,
+                        listSpinner
+                    )
+
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spTempatLahir.adapter = adapter
+
+                    spTempatLahir.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+                            //nothing
+                        }
+
+                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                            tmptLahir = data[p2].id_kota
+                            //Toast.makeText(context, tmptLahir, Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+
+                }else{
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        })
+
+    }
+
+    private fun getProvinsi(){
+        NetworkConfig().api().getProvinsi().enqueue(object : Callback<List<Provinsi>> {
+            override fun onFailure(call: Call<List<Provinsi>>, t: Throwable) {
+                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<List<Provinsi>>, response: Response<List<Provinsi>>) {
+                if(response.isSuccessful){
+                    val data : List<Provinsi> = response.body()!!
+
+                    val listSpinner = ArrayList<String>()
+                    for(i in data.indices){
+                        listSpinner.add(data[i].provinsi!!)
+                    }
+
+                    val adapter = ArrayAdapter(
+                        applicationContext, R.layout.support_simple_spinner_dropdown_item,
+                        listSpinner
+                    )
+
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spProvinsi.adapter = adapter
+
+                    spProvinsi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+                            //nothing
+                        }
+
+                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                            idProvinsi = data[p2].id_provinsi
+                            //Toast.makeText(context, idProvinsi, Toast.LENGTH_SHORT).show()
+
+                            val listKota : List<Kota> = data[p2].listkota!!
+
+                            val listSpinnerKota = ArrayList<String>()
+                            for(i in listKota.indices){
+                                listSpinnerKota.add(listKota[i].type!!+ " " + listKota[i].kota!!)
+                            }
+
+                            val adapterKota = ArrayAdapter(
+                                applicationContext, R.layout.support_simple_spinner_dropdown_item,
+                                listSpinnerKota
+                            )
+
+                            adapterKota.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                            spKota.adapter = adapterKota
+
+                            spKota.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                                override fun onNothingSelected(p0: AdapterView<*>?) {
+                                    //nothing
+                                }
+
+                                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                                    idKota = listKota[p2].id_kota
+                                    //Toast.makeText(context, idKota, Toast.LENGTH_SHORT).show()
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }else{
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        })
     }
 
     private fun validationRequired(){
@@ -51,16 +191,21 @@ class RegistrasiActivity : AppCompatActivity() {
         date()
 
         //validation
+        validationNIK()
         validationUsername()
         validationPassword()
         verificationPassword()
 
         btnDaftar.setOnClickListener {
             when {
-                etNIK.text.isEmpty() -> etNIK.error = "NIK Kosong"
+                etNIK.text.isEmpty() -> etNIK.error = "NIK Kosong!"
+                !validNIK -> validationNIK()
                 etNama.text.isEmpty() -> etNama.error = "Nama Kosong"
+                tmptLahir == null -> Toast.makeText(this, "Tempat Lahir Kosong!", Toast.LENGTH_SHORT).show()
                 tglLahir.isEmpty() -> Toast.makeText(this, "Pilih Tanggal Lahir!", Toast.LENGTH_SHORT).show()
                 selected == -1 -> Toast.makeText(this, "Pilih Jenis Kelamin!", Toast.LENGTH_SHORT).show()
+                idProvinsi == null -> Toast.makeText(this, "Provinsi Kosong!", Toast.LENGTH_SHORT).show()
+                idKota == null -> Toast.makeText(this, "Kota/Kabupaten Kosong!", Toast.LENGTH_SHORT).show()
                 etAlamatLengkap.text.isEmpty() -> etAlamatLengkap.error = "Alamat Kosong"
                 etKodePos.text.isEmpty() -> etKodePos.error = "Kode Pos Kosong"
                 etUsername.text.isEmpty() -> etUsername.error = "Username Kosong"
@@ -76,8 +221,43 @@ class RegistrasiActivity : AppCompatActivity() {
     }
 
     private fun daftar(){
-        Toast.makeText(this, jk, Toast.LENGTH_SHORT).show()
-        Toast.makeText(this, tglLahir, Toast.LENGTH_SHORT).show()
+        val nik = etNIK.text.toString()
+        val nama = etNama.text.toString()
+        val alamat = etAlamatLengkap.text.toString()
+        val kodepos = etKodePos.text.toString()
+        val username = etUsername.text.toString()
+        val password = etPassword.text.toString()
+        val email = etEmail.text.toString()
+
+        loading()
+
+        Handler().postDelayed({
+            viewModelRegister = ViewModelProviders.of(this).get(RegistrasiViewModel::class.java)
+            viewModelRegister.setData(nik,nama, tmptLahir!!.toInt(), tglLahir, jk, idProvinsi!!.toInt(), idKota!!.toInt(), alamat, kodepos.toInt(), username, password, email, 0).observe(this, androidx.lifecycle.Observer {
+                    t ->
+//                Toast.makeText(this, t?.message?.get(0), Toast.LENGTH_SHORT).show()
+                t?.status_code?.let { alertDialog(t.message?.get(0).toString(), it) }
+            })
+
+            viewModelRegister.getResponse().observe(this, androidx.lifecycle.Observer {
+                    t ->
+                Toast.makeText(this, t, Toast.LENGTH_SHORT).show()
+            })
+
+            loading.dismiss()
+        }, 3000)
+
+//        Toast.makeText(context, nik, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, nama, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, tmptLahir, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, tglLahir, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, jk, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, idProvinsi, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, idKota, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, alamat, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, username, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, password, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, email, Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("SetTextI18n")
@@ -89,10 +269,21 @@ class RegistrasiActivity : AppCompatActivity() {
 
         btnTglLahir.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                tglLahir = "$dayOfMonth / $month / $year"
+                tglLahir = "$dayOfMonth/$month/$year"
                 tvTglLahir.text = tglLahir
             }, year, month, day)
             dpd.show()
+        }
+    }
+
+    private fun validationNIK(){
+        etNIK.doAfterTextChanged {
+            if(etNIK.text.toString().length < 16 || etNIK.text.toString().length > 16){
+                etNIK.error = "NIK Harus 16 Karakter"
+                validNIK = false
+            }else{
+                validNIK = true
+            }
         }
     }
 
@@ -137,5 +328,45 @@ class RegistrasiActivity : AppCompatActivity() {
                 etPassword.error = null
             }
         }
+    }
+
+    private fun loading(){
+        loading.setContentView(R.layout.loading)
+        loading.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        loading.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        loading.setCancelable(false)
+        loading.show()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun alertDialog(message : String, status_code : Int){
+        when (status_code) {
+            0 -> alertDialog.setContentView(R.layout.alert_success)
+            else -> alertDialog.setContentView(R.layout.alert_danger)
+        }
+
+        val btnYa : Button = alertDialog.findViewById(R.id.btnYa)
+        val tvIsi : TextView = alertDialog.findViewById(R.id.tvIsi)
+        val tvJudul : TextView = alertDialog.findViewById(R.id.tvJudul)
+
+        tvJudul.text = "Peringatan!"
+        tvIsi.text = message
+        btnYa.setOnClickListener {
+            alertDialog.dismiss()
+            when (status_code) {
+                0 -> {
+                    val intent = Intent(context, BerandaActivity::class.java)
+                    intent.putExtra("navTab", 4)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        }
+
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+
     }
 }
