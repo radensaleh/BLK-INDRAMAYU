@@ -1,61 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/refreshLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".activity.SemuaInfoActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvHeader"
+            app:cardBackgroundColor="@color/colorLightBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/RLHeader"
+                android:padding="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/imgArrowBack"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/ic_arrow_back_blue_24dp"
-                    tools:ignore="VectorDrawableCompat" />
+                <LinearLayout
+                    android:id="@+id/LLheader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:layout_marginLeft="3dp"
+                        android:id="@+id/imgHeader"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/beritabaru"/>
+
+                    <TextView
+                        android:id="@+id/tvHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/LLHeader"
+                        android:textColor="@color/colorWhite"
+                        android:text=" SEMUA BERITA"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvCari"
+                    android:layout_below="@id/LLheader"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=" Semua Info"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"/>
+                    android:textSize="14sp"
+                    android:textStyle="italic"
+                    android:textColor="@color/colorWhite"
+                    android:text="CARI BERITAMU SEKARANG!" />
 
+                <LinearLayout
+                    android:layout_below="@id/tvCari"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp">
 
-            </LinearLayout>
-        </RelativeLayout>
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/searchView"
+                        android:background="@drawable/rounded_search"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
 
-    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btnDate"
+                        android:layout_marginLeft="10dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="15dp"
+                        android:focusable="true">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerSemuaInfo"
+                        <TextView
+                            android:drawableLeft="@drawable/ic_date_range_white_24dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="15dp"/>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvDataKosong"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="15dp"
+        android:text="Data Kosong!"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/header"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/LLheader"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginRight="30dp"-->
+<!--            android:layout_marginLeft="30dp"-->
+<!--            android:layout_marginTop="16dp">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/imgHeader"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:src="@drawable/beritabaru"/>-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvHeader"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/LLHeader"-->
+<!--                android:text=" SEMUA BERITA"-->
+<!--                android:textColor="@color/colorWhite"-->
+<!--                android:textSize="22sp"-->
+<!--                android:textStyle="bold" />-->
+
+<!--        </LinearLayout>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvCari"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginLeft="30dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/colorWhite"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textStyle="italic"-->
+<!--            android:text="CARI BERITAMU SEKARANG!" />-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginLeft="30dp"-->
+<!--            android:layout_marginRight="30dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginBottom="20dp">-->
+
+<!--            <androidx.appcompat.widget.SearchView-->
+<!--                android:id="@+id/searchView"-->
+<!--                android:background="@drawable/rounded_search"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content" />-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/btnDate"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:foreground="?android:attr/selectableItemBackground"-->
+<!--                android:clickable="true"-->
+<!--                app:cardBackgroundColor="@color/colorAccent"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:cardCornerRadius="15dp"-->
+<!--                android:focusable="true">-->
+
+<!--                <TextView-->
+<!--                    android:drawableLeft="@drawable/ic_date_range_white_24dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:gravity="center"-->
+<!--                    android:textColor="@color/colorWhite"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="15dp"/>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSemuaInfo"
+        android:layout_below="@id/cvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
         android:scrollbars="vertical"
         tools:listitem="@layout/item_info" />
 
+    </RelativeLayout>
 
-</LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

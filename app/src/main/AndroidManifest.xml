@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.proyek2.blkindramayu">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,8 +11,12 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo_blkindramayu"
         android:supportsRtl="true"
-        android:theme="@style/NoBarAppTheme">
-        <activity android:name=".activity.SemuaInfoActivity"></activity>
+        android:theme="@style/NoBarAppTheme"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+        <activity
+            android:name=".activity.SemuaInfoActivity"
+            android:theme="@style/SearchAppTheme"/>
         <activity
             android:name=".activity.RegistrasiActivity"
             android:theme="@style/NoBarLoginRegis" />
@@ -27,6 +32,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".fcm.NotificationServices"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="TODO"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/notif_icon" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorRed" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:resource="@color/colorRed"
+            android:value="Default" />
+
     </application>
+
+
 
 </manifest>

@@ -13,10 +13,10 @@ class RegistrasiViewModel : ViewModel(){
     private var status = MutableLiveData<Boolean>()
     private var res = MutableLiveData<String>()
 
-    private fun registrasi(nik: String, nama: String, tmptLahir: Int, tglLahir: String, jk: String, idProvinsi: Int, idKota: Int, alamat: String, kodepos: Int, username: String, password: String, email: String, status_member : Int){
+    private fun registrasi(nik: String, nama: String, tmptLahir: Int, tglLahir: String, jk: String, idProvinsi: Int, idKota: Int, alamat: String, kodepos: Int, username: String, password: String, email: String, status_member : Int, listMinat: ArrayList<Int>){
         status.value = true
 
-        NetworkConfig().api().registrasiMember(nik,nama,tmptLahir,tglLahir,jk,idProvinsi,idKota,alamat,kodepos,username,password,email,status_member).enqueue(object : Callback<Res>{
+        NetworkConfig().api().registrasiMember(nik,nama,tmptLahir,tglLahir,jk,idProvinsi,idKota,alamat,kodepos,username,password,email,status_member,listMinat).enqueue(object : Callback<Res>{
             override fun onFailure(call: Call<Res>, t: Throwable) {
                 status.value = true
                 data.value = null
@@ -35,8 +35,8 @@ class RegistrasiViewModel : ViewModel(){
         })
     }
 
-    fun setData(nik : String, nama : String, tmptLahir : Int, tglLahir : String, jk : String, idProvinsi : Int, idKota : Int, alamat : String, kodepos : Int, username : String, password : String, email : String, status : Int) : MutableLiveData<Res> {
-        registrasi(nik,nama,tmptLahir,tglLahir,jk,idProvinsi,idKota,alamat,kodepos,username,password,email,status)
+    fun setData(nik : String, nama : String, tmptLahir : Int, tglLahir : String, jk : String, idProvinsi : Int, idKota : Int, alamat : String, kodepos : Int, username : String, password : String, email : String, status : Int, listMinat : ArrayList<Int>) : MutableLiveData<Res> {
+        registrasi(nik,nama,tmptLahir,tglLahir,jk,idProvinsi,idKota,alamat,kodepos,username,password,email,status,listMinat)
 
         return data
     }

@@ -12,7 +12,7 @@
     <style name="NoBarAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorLightBlue</item>
         <item name="colorPrimaryDark">@color/colorLightBlue</item>
-        <item name="colorAccent">@color/colorWhite</item>
+        <item name="colorAccent">@color/colorRed</item>
     </style>
 
     <!-- No Bar Fragment -->
@@ -20,6 +20,13 @@
         <item name="colorPrimary">@color/colorLightBlue</item>
         <item name="colorPrimaryDark">@color/colorLightBlue</item>
         <item name="colorAccent">@color/colorWhite</item>
+    </style>
+
+    <!-- No Bar Semua Info -->
+    <style name="SearchAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorLightBlue</item>
+        <item name="colorPrimaryDark">@color/colorLightBlue</item>
+        <item name="colorAccent">@color/colorBlue</item>
     </style>
 
     <!-- No Bar Login Regis -->

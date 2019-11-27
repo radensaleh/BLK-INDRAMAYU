@@ -13,10 +13,10 @@ class DetailViewModel : ViewModel() {
     private var data = MutableLiveData<Info>()
     private var status = MutableLiveData<Boolean>()
 
-    private fun getData(kdKonten : String){
+    private fun getData(kdKonten : String, tipe : Int){
         status.value = true
 
-        NetworkConfig().api().getDetailInfo(kdKonten).enqueue(object : Callback<Info>{
+        NetworkConfig().api().getDetailInfo(kdKonten, tipe).enqueue(object : Callback<Info>{
             override fun onFailure(call: Call<Info>, t: Throwable) {
                 status.value = true
                 data.value = null
@@ -34,8 +34,8 @@ class DetailViewModel : ViewModel() {
         })
     }
 
-    fun setData(kdKonten: String) : MutableLiveData<Info>{
-        getData(kdKonten)
+    fun setData(kdKonten: String, tipe : Int) : MutableLiveData<Info>{
+        getData(kdKonten, tipe)
 
         return data
     }

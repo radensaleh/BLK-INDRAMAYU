@@ -112,461 +112,552 @@
         android:text=" radensaleh@student.polindra.ac.id"
         android:textSize="12sp"/>
 
-    <LinearLayout
-        android:id="@+id/LLData"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ScrollView
         android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_below="@id/tvEmail">
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:layout_below="@id/tvEmail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvDataDiri"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1.5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/LLData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@id/tvEmail">
 
-                <TextView
-                    android:layout_width="match_parent"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvDataDiri"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1.5"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Data Diri"
-                    android:textSize="14sp"
-                    android:textStyle="bold"/>
+                    app:cardCornerRadius="15dp">
 
-                <LinearLayout
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_marginTop="5dp"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/tanggal"/>
-
-                    <TextView
-                        android:id="@+id/tvTTL"
-                        android:layout_marginTop="5dp"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:layout_marginLeft="3dp"
-                        android:text="Cirebon, 19/09/1999 " />
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Data Diri"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                        <LinearLayout
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:src="@drawable/tanggal"/>
+
+                            <TextView
+                                android:id="@+id/tvTTL"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:layout_marginLeft="3dp"
+                                android:text="Cirebon, 19/09/1999 " />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imgJK"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:src="@drawable/jklakilaki"/>
+
+                            <TextView
+                                android:id="@+id/tvJK"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:layout_marginLeft="3dp"
+                                android:text=" Laki-Laki " />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:src="@drawable/kontak"/>
+
+                            <TextView
+                                android:id="@+id/tvKontak"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:layout_marginLeft="3dp"
+                                android:text=" 089677471844 " />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:src="@drawable/pendidikan"/>
+
+                            <TextView
+                                android:id="@+id/tvPend"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:layout_marginLeft="3dp"
+                                android:text=" Pendididkan SLTA " />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:src="@drawable/lulus"/>
+
+                            <TextView
+                                android:id="@+id/tvThnLulus"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:layout_marginLeft="3dp"
+                                android:text=" Lulus 2017 " />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
 
                 <LinearLayout
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/imgJK"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/jklakilaki"/>
-
-                    <TextView
-                        android:id="@+id/tvJK"
-                        android:layout_marginTop="5dp"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvUkuran"
+                        android:layout_marginLeft="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:layout_marginLeft="3dp"
-                        android:text=" Laki-Laki " />
+                        app:cardCornerRadius="15dp">
 
-                </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="20dp">
 
-                <LinearLayout
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Ukuran"
+                                android:textSize="14sp"
+                                android:textStyle="bold"/>
 
-                    <ImageView
-                        android:layout_marginTop="5dp"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/kontak"/>
+                            <LinearLayout
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tvKontak"
-                        android:layout_marginTop="5dp"
+                                <ImageView
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:src="@drawable/sepatu"/>
+
+                                <TextView
+                                    android:id="@+id/tvUkuranSepatu"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:layout_marginLeft="3dp"
+                                    android:text=" 45 " />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:src="@drawable/baju"/>
+
+                                <TextView
+                                    android:id="@+id/tvUkuranBaju"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:layout_marginLeft="3dp"
+                                    android:text=" XXL " />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btnLogout"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:layout_marginLeft="3dp"
-                        android:text=" 089677471844 " />
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="15dp"
+                        android:focusable="true">
 
-                </LinearLayout>
+                        <TextView
+                            android:drawableLeft="@drawable/ic_logout_white_24dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="LOGOUT"
+                            android:padding="15dp"/>
 
-                <LinearLayout
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_marginTop="5dp"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/pendidikan"/>
-
-                    <TextView
-                        android:id="@+id/tvPend"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:layout_marginLeft="3dp"
-                        android:text=" Pendididkan SLTA " />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_marginTop="5dp"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/lulus"/>
-
-                    <TextView
-                        android:id="@+id/tvThnLulus"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:layout_marginLeft="3dp"
-                        android:text=" Lulus 2017 " />
-
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvUkuran"
-                android:layout_marginLeft="10dp"
+            <LinearLayout
+                android:id="@+id/LLAlamat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Ukuran"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
-
-                    <LinearLayout
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_marginTop="5dp"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:src="@drawable/sepatu"/>
-
-                        <TextView
-                            android:id="@+id/tvUkuranSepatu"
-                            android:layout_marginTop="5dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_marginLeft="3dp"
-                            android:text=" 45 " />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_marginTop="5dp"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:src="@drawable/baju"/>
-
-                        <TextView
-                            android:id="@+id/tvUkuranBaju"
-                            android:layout_marginTop="5dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_marginLeft="3dp"
-                            android:text=" XXL " />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btnLogout"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                app:cardBackgroundColor="@color/colorAccent"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="15dp"
-                android:focusable="true">
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@id/LLData">
 
-                <TextView
-                    android:drawableLeft="@drawable/ic_logout_white_24dp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:textColor="@color/colorWhite"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="LOGOUT"
-                    android:padding="15dp"/>
+                    android:orientation="vertical">
 
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/editDataDiri"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:cardBackgroundColor="@color/colorGreenDark"
+                        android:layout_marginBottom="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="15dp"
+                        android:focusable="true">
 
-    </LinearLayout>
+                        <TextView
+                            android:drawableLeft="@drawable/ic_update_white_24dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:text="DATA DIRI"
+                            android:textSize="10dp"
+                            android:padding="15dp"/>
 
-    <LinearLayout
-        android:id="@+id/LLAlamat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_below="@id/LLData">
+                    </androidx.cardview.widget.CardView>
 
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/editUkuran"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:cardBackgroundColor="@color/colorGreenDark"
+                        android:layout_marginBottom="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        app:cardCornerRadius="15dp"
+                        android:focusable="true">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/editDataDiri"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                app:cardBackgroundColor="@color/colorGreenDark"
-                android:layout_marginBottom="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
-                android:focusable="true">
+                        <TextView
+                            android:drawableLeft="@drawable/ic_update_white_24dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="UKURAN"
+                            android:textSize="10dp"
+                            android:padding="15dp"/>
 
-                <TextView
-                    android:drawableLeft="@drawable/ic_update_white_24dp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:textColor="@color/colorWhite"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="DATA DIRI"
-                    android:textSize="10dp"
-                    android:padding="15dp"/>
+                    </androidx.cardview.widget.CardView>
 
-            </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/editAlamat"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:cardBackgroundColor="@color/colorGreenDark"
+                        android:layout_marginBottom="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        app:cardCornerRadius="15dp"
+                        android:focusable="true">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/editUkuran"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                app:cardBackgroundColor="@color/colorGreenDark"
-                android:layout_marginBottom="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:cardCornerRadius="15dp"
-                android:focusable="true">
+                        <TextView
+                            android:drawableLeft="@drawable/ic_update_white_24dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="ALAMAT"
+                            android:textSize="10dp"
+                            android:padding="15dp"/>
 
-                <TextView
-                    android:drawableLeft="@drawable/ic_update_white_24dp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:textColor="@color/colorWhite"
-                    android:layout_width="match_parent"
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvAlamat"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.9"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="UKURAN"
-                    android:textSize="10dp"
-                    android:padding="15dp"/>
+                    android:layout_marginBottom="5dp"
+                    app:cardCornerRadius="15dp">
 
-            </androidx.cardview.widget.CardView>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/editAlamat"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                app:cardBackgroundColor="@color/colorGreenDark"
-                android:layout_marginBottom="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:cardCornerRadius="15dp"
-                android:focusable="true">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Alamat"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
 
-                <TextView
-                    android:drawableLeft="@drawable/ic_update_white_24dp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:textColor="@color/colorWhite"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="ALAMAT"
-                    android:textSize="10dp"
-                    android:padding="15dp"/>
+                        <LinearLayout
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-            </androidx.cardview.widget.CardView>
+                            <ImageView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:src="@drawable/provinsi"/>
 
-        </LinearLayout>
+                            <TextView
+                                android:id="@+id/tvProvinsi"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:singleLine="true"
+                                android:layout_marginLeft="3dp"
+                                android:text=" Cirebon, Jawa Barat " />
 
+                        </LinearLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvAlamat"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1.9"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            app:cardCornerRadius="15dp">
+                        <LinearLayout
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:src="@drawable/kodepos"/>
+
+                            <TextView
+                                android:id="@+id/tvKodePos"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:layout_marginLeft="3dp"
+                                android:text=" Kode Pos. 45171 " />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:src="@drawable/alamat"/>
+
+                            <TextView
+                                android:id="@+id/tvAlamatLengkap"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:layout_marginLeft="3dp"
+                                android:text=" Jalan Pangeran Cakra Buana RT 04 RW 01 No.8 Kecamatan Talun Kabupaten Cirebon " />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
 
             <LinearLayout
+                android:id="@+id/LL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Alamat"
-                    android:textSize="14sp"
-                    android:textStyle="bold"/>
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@id/LLAlamat">
 
                 <LinearLayout
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_marginTop="5dp"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/provinsi"/>
-
-                    <TextView
-                        android:id="@+id/tvProvinsi"
-                        android:layout_marginTop="5dp"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvEditPassword"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        android:layout_marginBottom="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:singleLine="true"
-                        android:layout_marginLeft="3dp"
-                        android:text=" Cirebon, Jawa Barat " />
+                        app:cardCornerRadius="15dp"
+                        android:focusable="true">
 
+                        <TextView
+                            android:drawableLeft="@drawable/ic_update_white_24dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:text="UBAH PASSWORD"
+                            android:textSize="10dp"
+                            android:padding="15dp"/>
+
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_marginTop="5dp"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/kodepos"/>
-
-                    <TextView
-                        android:id="@+id/tvKodePos"
-                        android:layout_marginTop="5dp"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvEditMinat"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:cardBackgroundColor="@color/colorLightBlue"
+                        android:layout_marginBottom="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:layout_marginLeft="3dp"
-                        android:text=" Kode Pos. 45171 " />
+                        app:cardCornerRadius="15dp"
+                        android:focusable="true">
 
-                </LinearLayout>
+                        <TextView
+                            android:drawableLeft="@drawable/ic_update_white_24dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:text="UBAH MINAT"
+                            android:textSize="10dp"
+                            android:padding="15dp"/>
 
-                <LinearLayout
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_marginTop="5dp"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/alamat"/>
-
-                    <TextView
-                        android:id="@+id/tvAlamatLengkap"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:layout_marginLeft="3dp"
-                        android:text=" Jalan Pangeran Cakra Buana RT 04 RW 01 No.8 Kecamatan Talun Kabupaten Cirebon " />
-
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
-    </LinearLayout>
-
-
+    </ScrollView>
 
 
 </RelativeLayout>

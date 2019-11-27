@@ -14,8 +14,13 @@ import android.view.View
 import android.widget.*
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.proyek2.blkindramayu.R
+import com.proyek2.blkindramayu.adapter.AdapterMinat
+import com.proyek2.blkindramayu.model.DataMinat
 import com.proyek2.blkindramayu.model.Kota
+import com.proyek2.blkindramayu.model.Minat
 import com.proyek2.blkindramayu.model.Provinsi
 import com.proyek2.blkindramayu.network.NetworkConfig
 import com.proyek2.blkindramayu.viewModel.RegistrasiViewModel
@@ -26,6 +31,7 @@ import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
+@Suppress("UNCHECKED_CAST")
 class RegistrasiActivity : AppCompatActivity() {
 
     private var context : Context? = null
@@ -35,12 +41,14 @@ class RegistrasiActivity : AppCompatActivity() {
     private var validUsername = false
     private var validPassword = false
     private var verifPassword = false
-    private var tmptLahir : String? = null
-    private var idKota : String? = null
-    private var idProvinsi : String? = null
+    private var tmptLahir : Int? = null
+    private var idKota : Int? = null
+    private var idProvinsi : Int? = null
+    private var idMinat = ArrayList<Int>()
     private lateinit var viewModelRegister : RegistrasiViewModel
     private lateinit var loading : Dialog
     private lateinit var alertDialog : Dialog
+    private lateinit var dialogMinat : Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +57,7 @@ class RegistrasiActivity : AppCompatActivity() {
         context = this
         loading = Dialog(this)
         alertDialog = Dialog(this)
+        dialogMinat = Dialog(this)
 
         tvLogin.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java)
@@ -189,6 +198,8 @@ class RegistrasiActivity : AppCompatActivity() {
 
         //date
         date()
+        //minat
+        getMinat()
 
         //validation
         validationNIK()
@@ -204,6 +215,7 @@ class RegistrasiActivity : AppCompatActivity() {
                 tmptLahir == null -> Toast.makeText(this, "Tempat Lahir Kosong!", Toast.LENGTH_SHORT).show()
                 tglLahir.isEmpty() -> Toast.makeText(this, "Pilih Tanggal Lahir!", Toast.LENGTH_SHORT).show()
                 selected == -1 -> Toast.makeText(this, "Pilih Jenis Kelamin!", Toast.LENGTH_SHORT).show()
+                tvMinat.text.toString() == "Minat : []" -> Toast.makeText(context, "Pilih Minat Anda!", Toast.LENGTH_SHORT).show()
                 idProvinsi == null -> Toast.makeText(this, "Provinsi Kosong!", Toast.LENGTH_SHORT).show()
                 idKota == null -> Toast.makeText(this, "Kota/Kabupaten Kosong!", Toast.LENGTH_SHORT).show()
                 etAlamatLengkap.text.isEmpty() -> etAlamatLengkap.error = "Alamat Kosong"
@@ -233,7 +245,7 @@ class RegistrasiActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             viewModelRegister = ViewModelProviders.of(this).get(RegistrasiViewModel::class.java)
-            viewModelRegister.setData(nik,nama, tmptLahir!!.toInt(), tglLahir, jk, idProvinsi!!.toInt(), idKota!!.toInt(), alamat, kodepos.toInt(), username, password, email, 0).observe(this, androidx.lifecycle.Observer {
+            viewModelRegister.setData(nik,nama, tmptLahir!!.toInt(), tglLahir, jk, idProvinsi!!.toInt(), idKota!!.toInt(), alamat, kodepos.toInt(), username, password, email, 0, idMinat).observe(this, androidx.lifecycle.Observer {
                     t ->
 //                Toast.makeText(this, t?.message?.get(0), Toast.LENGTH_SHORT).show()
                 t?.status_code?.let { alertDialog(t.message?.get(0).toString(), it) }
@@ -273,6 +285,62 @@ class RegistrasiActivity : AppCompatActivity() {
                 tvTglLahir.text = tglLahir
             }, year, month, day)
             dpd.show()
+        }
+    }
+
+    private fun getMinat(){
+        NetworkConfig().api().getMinat().enqueue(object : Callback<Minat>{
+            override fun onFailure(call: Call<Minat>, t: Throwable) {
+                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<Minat>, response: Response<Minat>) {
+                if(response.isSuccessful){
+                    val listMinat = response.body()?.data
+                    minat(listMinat as List<DataMinat>?)
+                }else{
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        })
+    }
+
+    @SuppressLint("SetTextI18n", "WrongConstant")
+    private fun minat(data : List<DataMinat>?){
+        val minatPilihan : List<DataMinat>? = null
+
+        btnMinat.setOnClickListener {
+            dialogMinat.setContentView(R.layout.dialog_minat)
+            val judul = dialogMinat.findViewById<TextView>(R.id.tvJudul)
+            val rvMinat = dialogMinat.findViewById<RecyclerView>(R.id.rvMinat)
+            val btnOK = dialogMinat.findViewById<Button>(R.id.btnOK)
+
+            judul.text = "Pilih Minat Anda"
+
+            rvMinat.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
+            val adapter = context?.let { it1 ->
+                data?.let { it2 ->
+                    AdapterMinat(
+                        it2,
+                        it1, dialogMinat, btnOK, tvMinat, minatPilihan
+                    )
+                }
+            }
+
+            adapter?.dataID = object : AdapterMinat.InterfaceID{
+                override fun getID(pilihanID: ArrayList<Int>) {
+                    idMinat = pilihanID
+                }
+            }
+
+            rvMinat.adapter = adapter
+            adapter?.notifyDataSetChanged()
+
+            dialogMinat.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialogMinat.window!!.attributes.windowAnimations = R.style.DialogAnimation
+            dialogMinat.setCancelable(false)
+            dialogMinat.show()
         }
     }
 

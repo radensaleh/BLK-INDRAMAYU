@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-//import android.widget.Toast
 import com.proyek2.blkindramayu.R
 import com.proyek2.blkindramayu.room.AppDataBase
 import kotlinx.android.synthetic.main.activity_main.*

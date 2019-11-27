@@ -23,6 +23,7 @@ class DetailInfoActivity : AppCompatActivity() {
     private var isiKonten : String? = null
     private var foto : String? = null
     private var tglUpload : String? = null
+    private var tipe : Int? = null
 
     private lateinit var viewModelDetailInfo : DetailViewModel
 
@@ -32,21 +33,23 @@ class DetailInfoActivity : AppCompatActivity() {
 
         val intent = intent
 
-        id = intent.getStringExtra("id")
+        id   = intent.getStringExtra("id")
+        tipe = intent.getIntExtra("tipe", 0)
 
-        setData()
+        //tipe 1 berita, tipe 2 loker
 
+        setDataBerita()
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setData(){
-
+    private fun setDataBerita(){
         viewModelDetailInfo = ViewModelProviders.of(this).get(DetailViewModel::class.java)
         id?.let {
-            viewModelDetailInfo.setData(it).observe(this, Observer {
-                t ->
-                showData(t?.data as List<DataInfo>)
-            })
+            tipe?.let { it1 ->
+                viewModelDetailInfo.setData(it, it1).observe(this, Observer { t ->
+                    showData(t?.data as List<DataInfo>)
+                })
+            }
         }
 
     }
@@ -63,7 +66,11 @@ class DetailInfoActivity : AppCompatActivity() {
             .load("${BuildConfig.IMAGE}/konten/$foto")
             .into(imgInfo)
 
-        tvTitle.text = "Detail $kategoriKonten"
+        when(tipe){
+            1 -> tvTitle.text = " Detail $kategoriKonten"
+            2 -> tvTitle.text = " Detail Loker"
+        }
+
         tvJudul.text = judul
         tvKategori.text = kategoriKonten
         tvTglUpload.text = "Diunggah pada : $tglUpload"
@@ -75,4 +82,5 @@ class DetailInfoActivity : AppCompatActivity() {
         }
 
     }
+
 }

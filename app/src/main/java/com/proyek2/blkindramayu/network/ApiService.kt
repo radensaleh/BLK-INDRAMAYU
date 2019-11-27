@@ -13,6 +13,12 @@ interface ApiService {
     @GET("getLoker")
     fun getLoker(): Call<Info>
 
+    @GET("getSemuaBerita")
+    fun getSemuaBerita(): Call<Info>
+
+    @GET("getSemuaLoker")
+    fun getSemuaLoker(): Call<Info>
+
     @GET("getPoster")
     fun getPoster(): Call<Poster>
 
@@ -24,6 +30,9 @@ interface ApiService {
 
     @GET("getProfilLembaga")
     fun getProfilLembaga(): Call<ProfilLembaga>
+
+    @GET("getMinat")
+    fun getMinat(): Call<Minat>
 
     @FormUrlEncoded
     @POST("registrasiMember")
@@ -40,7 +49,8 @@ interface ApiService {
         @Field("username") username : String,
         @Field("password") password : String,
         @Field("email") email : String,
-        @Field("status") status : Int
+        @Field("status") status : Int,
+        @Field("listMinat[]") listMinat : ArrayList<Int>
     ) : Call<Res>
 
     @FormUrlEncoded
@@ -51,9 +61,73 @@ interface ApiService {
     ) : Call<Res>
 
     @FormUrlEncoded
+    @POST("updateToken")
+    fun updateToken(
+        @Field("username") username: String,
+        @Field("token") token : String?,
+        @Field("id") id : Int
+    ) : Call<Res>
+
+    @FormUrlEncoded
+    @POST("getMember")
+    fun getMember(
+        @Field("kd_pengguna") kdPengguna: Int,
+        @Field("username") username: String
+    ) : Call<Res>
+
+    @FormUrlEncoded
+    @POST("updateDataDiri")
+    fun updateDataDiri(
+        @Field("nomor_ktp") nik : String,
+        @Field("username") username : String,
+        @Field("nama_lengkap") nama : String,
+        @Field("tempat_lahir") tmptLahir : Int,
+        @Field("tgl_lahir") tglLahir : String,
+        @Field("jenis_kelamin") jk : String,
+        @Field("pend_terakhir") pend : String,
+        @Field("thn_ijazah") thnLulus : Int,
+        @Field("nomor_kontak") noKontak : String,
+        @Field("email") email : String
+    ) : Call<Res>
+
+    @FormUrlEncoded
+    @POST("updateUkuran")
+    fun updateUkuran(
+        @Field("username") username: String,
+        @Field("ukuran_baju") baju : String,
+        @Field("ukuran_sepatu") sepatu : Int
+    ) : Call<Res>
+
+    @FormUrlEncoded
+    @POST("updateAlamat")
+    fun updateAlamat(
+        @Field("username") username: String,
+        @Field("alamat_lengkap") alamat: String,
+        @Field("provinsi") provinsi : Int,
+        @Field("kabupaten_kota") kota : Int,
+        @Field("kodepos") kodepos : Int
+    ) : Call<Res>
+
+    @FormUrlEncoded
+    @POST("updatePassword")
+    fun updatePassword(
+        @Field("username") username: String,
+        @Field("password") password: String,
+        @Field("password_baru") passwordBaru : String
+    ) : Call<Res>
+
+    @FormUrlEncoded
+    @POST("updateMinat")
+    fun updateMinat(
+        @Field("kd_pengguna") kdPengguna: Int,
+        @Field("listMinat[]") listMinat: ArrayList<Int>
+    ) : Call<Res>
+
+    @FormUrlEncoded
     @POST("getDetailInfo")
     fun getDetailInfo(
-        @Field("kd_konten") kd_konten : String
+        @Field("kd_konten") kd_konten : String,
+        @Field("tipe") tipe : Int
     ) : Call<Info>
 
     @FormUrlEncoded
@@ -62,4 +136,21 @@ interface ApiService {
         @Field("city") kota : String
     ): Call<Result>
 
+    @FormUrlEncoded
+    @POST("getMinatByMember")
+    fun getMinatByMember(
+        @Field("kd_pengguna") kdPengguna : Int
+    ): Call<Minat>
+
+    @FormUrlEncoded
+    @POST("getLokerByMinat")
+    fun getLokerByMinat(
+        @Field("listMinat[]") listMinat: ArrayList<Int>
+    ): Call<Info>
+
+    @FormUrlEncoded
+    @POST("getSemuaLokerByMinat")
+    fun getSemuaLokerByMinat(
+        @Field("listMinat[]") listMinat: ArrayList<Int>
+    ): Call<Info>
 }

@@ -10,10 +10,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvHeader"
@@ -218,6 +215,120 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvBerita"
+                            android:overScrollMode="never"
+                            android:scrollbars="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvLokerMember"
+                app:cardBackgroundColor="@color/colorRed"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="15dp"
+                    android:id="@+id/tvLokerMemberKosong"
+                    android:padding="10dp"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TIDAK ADA LOKER"
+                    android:layout_gravity="center"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/LLLokerMember"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgLokerMember"
+                            android:layout_width="16dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/rekomended" />
+
+                        <TextView
+                            android:id="@+id/tvLokerMember"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="12dp"
+                            android:text="Rekomendasi Loker"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvSemuaLokerMember"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="100dp"
+                            android:layout_marginLeft="140dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="12dp"
+                            android:text="Semua"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <io.supercharge.shimmerlayout.ShimmerLayout
+                        android:id="@+id/shimmerLokerMember"
+                        app:shimmer_animation_duration="1500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp">
+
+                            <include layout="@layout/shimmer_info"/>
+                            <include layout="@layout/shimmer_info"/>
+                            <include layout="@layout/shimmer_info"/>
+                        </LinearLayout>
+
+                    </io.supercharge.shimmerlayout.ShimmerLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvLokerMember"
+                            android:overScrollMode="never"
                             android:scrollbars="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -331,6 +442,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvLoker"
+                            android:overScrollMode="never"
                             android:scrollbars="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

@@ -9,17 +9,24 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.firebase.iid.FirebaseInstanceId
 import com.proyek2.blkindramayu.R
+import com.proyek2.blkindramayu.model.Res
+import com.proyek2.blkindramayu.network.NetworkConfig
 import com.proyek2.blkindramayu.room.AppDataBase
 import com.proyek2.blkindramayu.room.MemberEntity
 import com.proyek2.blkindramayu.viewModel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
@@ -205,7 +212,25 @@ class LoginActivity : AppCompatActivity() {
         btnYa.setOnClickListener {
             alertDialog.dismiss()
             when (status_code) {
-                0 -> storeSQLite(list)
+                0 -> {
+                    val token = FirebaseInstanceId.getInstance().token
+                    Log.e("token", token)
+
+                    NetworkConfig().api().updateToken(list?.get(0)?.username!!, token!!, 0).enqueue(object : Callback<Res>{
+                        override fun onFailure(call: Call<Res>, t: Throwable) {
+                            Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                        override fun onResponse(call: Call<Res>, response: Response<Res>) {
+                            if(response.isSuccessful){
+                                storeSQLite(list)
+                            }else{
+                                Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                    })
+                }
             }
         }
 
