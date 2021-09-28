@@ -21,6 +21,6 @@ data class Member(
     val ukuran_sepatu : Int? = null,
     val username : String? = null,
     val password : String? = null,
-    val email : String? = null,
-    val status : Int? = null
+    val email : String? = null
+    //val status : Int? = null
 )

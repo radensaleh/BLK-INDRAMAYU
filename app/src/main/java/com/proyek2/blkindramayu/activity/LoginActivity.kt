@@ -165,7 +165,7 @@ class LoginActivity : AppCompatActivity() {
         val username : String = etUsername.text.toString()
         val password : String = etPassword.text.toString()
         val email : String = list[0]?.email!!
-        val status : Int = list[0]?.status!!
+        //val status : Int = list[0]?.status!!
         
 //        Toast.makeText(this, noKtp, Toast.LENGTH_SHORT).show()
 //        Toast.makeText(this, namaLengkap, Toast.LENGTH_SHORT).show()
@@ -187,7 +187,7 @@ class LoginActivity : AppCompatActivity() {
 //        Toast.makeText(this, status.toString(), Toast.LENGTH_SHORT).show()
 
         val member = MemberEntity(1, kdPengguna, noKtp, namaLengkap, tempatLahir, tglLahir, jk, alamat, provinsi, kabKota, kodePos,
-            pend, lulus, nomorKontak, baju, sepatu,username,password, email, status)
+            pend, lulus, nomorKontak, baju, sepatu,username,password, email)
         db?.memberDao()?.insert(member)
 
         val intent = Intent(context, BerandaActivity::class.java)

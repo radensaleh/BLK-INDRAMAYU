@@ -75,19 +75,19 @@ class BerandaActivity : AppCompatActivity() {
         if(savedInstanceState != null){
             when (supportFragmentManager.getFragment(savedInstanceState, "fragment")) {
                 is BerandaFragment -> {
-                    berandaFragment = supportFragmentManager.getFragment(savedInstanceState, "fragment_beranda") as BerandaFragment
+                    berandaFragment = supportFragmentManager.getFragment(savedInstanceState, "fragment") as BerandaFragment
                 }
                 is PelatihanFragment -> {
-                    pelatihanFragment = supportFragmentManager.getFragment(savedInstanceState, "fragment_pelatihan") as PelatihanFragment
+                    pelatihanFragment = supportFragmentManager.getFragment(savedInstanceState, "fragment") as PelatihanFragment
                 }
                 is ProfilLembagaFragment -> {
-                    profilLembagaFragment = supportFragmentManager.getFragment(savedInstanceState, "fragment_profil") as ProfilLembagaFragment
+                    profilLembagaFragment = supportFragmentManager.getFragment(savedInstanceState, "fragment") as ProfilLembagaFragment
                 }
                 is AkunFragment -> {
-                    akunFragment = supportFragmentManager.getFragment(savedInstanceState, "fragment_akun") as AkunFragment
+                    akunFragment = supportFragmentManager.getFragment(savedInstanceState, "fragment") as AkunFragment
                 }
                 is LoginRegisterFragment -> {
-                    loginregisFragment = supportFragmentManager.getFragment(savedInstanceState, "fragment_loginregis") as LoginRegisterFragment
+                    loginregisFragment = supportFragmentManager.getFragment(savedInstanceState, "fragment") as LoginRegisterFragment
                 }
             }
         }

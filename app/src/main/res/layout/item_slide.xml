@@ -7,6 +7,7 @@
     android:gravity="center_vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvPoster"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
@@ -37,10 +38,10 @@
                 <TextView
                     android:id="@+id/tvJudulPoster"
                     android:textStyle="bold"
-                    android:textColor="@color/colorLightBlue"
+                    android:textColor="@color/colorBlue"
                     android:text="Brochure"
-                    android:padding="5dp"
-                    android:textSize="16sp"
+                    android:padding="8dp"
+                    android:textSize="14sp"
                     android:singleLine="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

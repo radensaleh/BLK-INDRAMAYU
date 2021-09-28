@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Adapter
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -55,6 +56,7 @@ class BerandaFragment : Fragment() {
         shimmerPoster.startShimmerAnimation()
         shimmerInfo.startShimmerAnimation()
         shimmerLoker.startShimmerAnimation()
+        shimmerPengumuman.startShimmerAnimation()
 
         appDB = context?.let { AppDataBase.getInstance(it) }
         member = appDB?.memberDao()?.getMember()
@@ -62,13 +64,9 @@ class BerandaFragment : Fragment() {
 
         if(member != null){ shimmerLokerMember.startShimmerAnimation() }
 
-        instance()
+        if(savedInstanceState == null){ instance() }
 
         refreshLayout.setOnRefreshListener { instance() }
-
-//        imgScan.setOnClickListener {
-//            Toast.makeText(context, "Scan", Toast.LENGTH_SHORT).show()
-//        }
 
     }
 
@@ -76,6 +74,7 @@ class BerandaFragment : Fragment() {
         currentPage = 1
         getPoster()
         getBerita()
+        getPengumuman()
         getLoker()
 
         val leftRight = AnimationUtils.loadAnimation(context, R.anim.lefttoright)
@@ -101,6 +100,11 @@ class BerandaFragment : Fragment() {
         tvBerita.startAnimation(leftRight)
         tvSemuaBerita.startAnimation(rightLeft)
         rvBerita.startAnimation(leftRight)
+
+        tvPengumuman.startAnimation(leftRight)
+        tvSemuaPengumuman.startAnimation(rightLeft)
+        rvPengumuman.startAnimation(leftRight)
+
         tvLoker.startAnimation(leftRight)
         tvSemuaLoker.startAnimation(rightLeft)
         rvLoker.startAnimation(rightLeft)
@@ -120,6 +124,12 @@ class BerandaFragment : Fragment() {
         tvSemuaLoker.setOnClickListener {
             val intent = Intent(context, SemuaInfoActivity::class.java)
             intent.putExtra("info", 3)
+            startActivity(intent)
+        }
+
+        tvSemuaPengumuman.setOnClickListener {
+            val intent = Intent(context, SemuaInfoActivity::class.java)
+            intent.putExtra("info", 4)
             startActivity(intent)
         }
 
@@ -148,7 +158,7 @@ class BerandaFragment : Fragment() {
                         shimmerPoster.stopShimmerAnimation()
                         shimmerPoster.visibility = View.GONE
 
-                        val adapter = context?.let { PagerAdapterSlide(it, data as List<DataPoster>) }
+                        val adapter = context?.let { PagerAdapterSlide(it, data as List<DataPoster>, 1) }
                         viewPager.adapter = adapter
                         viewPager.setPadding(50, 0, 50, 0)
                         viewPager.setCurrentItem(1, true)
@@ -216,6 +226,44 @@ class BerandaFragment : Fragment() {
 
         })
     }
+
+    @SuppressLint("WrongConstant")
+    private fun getPengumuman(){
+        NetworkConfig().api().getPengumuman().enqueue(object : Callback<Info>{
+            override fun onFailure(call: Call<Info>, t: Throwable) {
+                shimmerPengumuman.stopShimmerAnimation()
+                refreshLayout.isRefreshing = false
+                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<Info>, response: Response<Info>) {
+                if(response.isSuccessful){
+                    refreshLayout.isRefreshing = false
+                    val data = response.body()?.data
+                    if(data?.isEmpty()!!){
+                        tvPengumumanKosong.visibility = View.VISIBLE
+                        shimmerPengumuman.stopShimmerAnimation()
+                        shimmerPengumuman.visibility = View.GONE
+                    }else{
+                        tvPengumumanKosong.visibility = View.GONE
+                        shimmerPengumuman.stopShimmerAnimation()
+                        shimmerPengumuman.visibility = View.GONE
+
+                        rvPengumuman.layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
+                        val adapter = context?.let { AdapterInfo(data as List<DataInfo>, it, 1) }
+                        rvPengumuman.adapter = adapter
+                        adapter?.notifyDataSetChanged()
+                    }
+                }else{
+                    refreshLayout.isRefreshing = false
+                    shimmerPengumuman.stopShimmerAnimation()
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        })
+    }
+
     @SuppressLint("WrongConstant")
     private fun getLoker(){
         NetworkConfig().api().getLoker().enqueue(object : Callback<Info>{
@@ -368,7 +416,7 @@ class BerandaFragment : Fragment() {
         shimmerPoster.stopShimmerAnimation()
         shimmerPoster.visibility = View.GONE
 
-        val adapter = context?.let { PagerAdapterSlide(it, data) }
+        val adapter = context?.let { PagerAdapterSlide(it, data, 1) }
         viewPager.adapter = adapter
         viewPager.setPadding(50, 0, 50, 0)
         viewPager.setCurrentItem(1, true)
@@ -445,4 +493,7 @@ class BerandaFragment : Fragment() {
         shimmerLoker.startShimmerAnimation()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
 }

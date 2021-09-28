@@ -26,6 +26,6 @@ data class MemberEntity (
     @Nullable @ColumnInfo(name = "ukuran_sepatu") var ukuran_sepatu : Int?,
     @NotNull @ColumnInfo(name = "username") var username : String,
     @NotNull @ColumnInfo(name = "password") var password : String,
-    @NotNull @ColumnInfo(name = "email") var email : String,
-    @NotNull @ColumnInfo(name = "status") var status : Int
+    @NotNull @ColumnInfo(name = "email") var email : String
+    //@NotNull @ColumnInfo(name = "status") var status : Int
 )

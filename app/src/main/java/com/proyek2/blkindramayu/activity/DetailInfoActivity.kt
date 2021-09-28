@@ -36,7 +36,8 @@ class DetailInfoActivity : AppCompatActivity() {
         id   = intent.getStringExtra("id")
         tipe = intent.getIntExtra("tipe", 0)
 
-        //tipe 1 berita, tipe 2 loker
+        //tipe 1 berita,pengumuman,poster
+        //tipe 2 loker
 
         setDataBerita()
     }
@@ -63,7 +64,8 @@ class DetailInfoActivity : AppCompatActivity() {
         foto = data[0].foto
 
         Glide.with(this)
-            .load("${BuildConfig.IMAGE}/konten/$foto")
+            //.load("${BuildConfig.IMAGE}/konten/$foto")
+            .load("${BuildConfig.CLOUDIMAGES}/$foto")
             .into(imgInfo)
 
         when(tipe){

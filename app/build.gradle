@@ -19,9 +19,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         //Base Api
-        buildConfigField "String", "BASE_URL", '"http://192.168.1.166:8000/api/"'
-        buildConfigField "String", "IMAGE", '"http://192.168.1.166:8000/images/"'
+        buildConfigField "String", "BASE_URL", '"http://si-blk.herokuapp.com/api/"'
+        buildConfigField "String", "IMAGE", '"http://si-blk.herokuapp.com/images/"'
         buildConfigField "String", "CLOUDIMAGES", '"http://res.cloudinary.com/harsoft-development/image/upload/c_fit,h_1080,w_1920/"'
+//        buildConfigField "String", "BASE_URL", '"http://192.168.43.197:8000/api/"'
+//        buildConfigField "String", "IMAGE", '"http://192.168.43.197:8000/images/"'
 
     }
     buildTypes {
@@ -82,4 +84,8 @@ dependencies {
 
     //optional, for rx java purpose
     implementation 'android.arch.persistence.room:rxjava2:1.1.1'
+
+    //spinner
+    implementation 'com.jaredrummler:material-spinner:1.3.1'
+
 }

@@ -92,19 +92,23 @@ class RegistrasiActivity : AppCompatActivity() {
                     )
 
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    spTempatLahir.adapter = adapter
+                    spTempatLahir.setAdapter(adapter)
 
-                    spTempatLahir.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                        override fun onNothingSelected(p0: AdapterView<*>?) {
-                            //nothing
-                        }
-
-                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                            tmptLahir = data[p2].id_kota
-                            //Toast.makeText(context, tmptLahir, Toast.LENGTH_SHORT).show()
-                        }
-
+                    spTempatLahir.setOnItemSelectedListener { view, position, id, item ->
+                        tmptLahir = data[position].id_kota
                     }
+
+//                    spTempatLahir.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//                        override fun onNothingSelected(p0: AdapterView<*>?) {
+//                            //nothing
+//                        }
+//
+//                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                            tmptLahir = data[p2].id_kota
+//                            //Toast.makeText(context, tmptLahir, Toast.LENGTH_SHORT).show()
+//                        }
+//
+//                    }
 
                 }else{
                     Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
@@ -136,47 +140,88 @@ class RegistrasiActivity : AppCompatActivity() {
                     )
 
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    spProvinsi.adapter = adapter
+                    spProvinsi.setAdapter(adapter)
 
-                    spProvinsi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                        override fun onNothingSelected(p0: AdapterView<*>?) {
-                            //nothing
+                    val listKota : List<Kota> = data[0].listkota!!
+
+                    val listSpinnerKota = ArrayList<String>()
+                    for(i in listKota.indices){
+                        listSpinnerKota.add(listKota[i].type!!+ " " + listKota[i].kota!!)
+                    }
+
+                    val adapterKota = ArrayAdapter(
+                        applicationContext, R.layout.support_simple_spinner_dropdown_item,
+                        listSpinnerKota
+                    )
+
+                    adapterKota.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spKota.setAdapter(adapterKota)
+
+                    spProvinsi.setOnItemSelectedListener { view, position, id, item ->
+                        idProvinsi = data[position].id_provinsi
+                        //Toast.makeText(context, idProvinsi.toString(), Toast.LENGTH_SHORT).show()
+
+                        val listKota : List<Kota> = data[position].listkota!!
+
+                        val listSpinnerKota = ArrayList<String>()
+                        for(i in listKota.indices){
+                            listSpinnerKota.add(listKota[i].type!!+ " " + listKota[i].kota!!)
                         }
 
-                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                            idProvinsi = data[p2].id_provinsi
-                            //Toast.makeText(context, idProvinsi, Toast.LENGTH_SHORT).show()
+                        val adapterKota = ArrayAdapter(
+                            applicationContext, R.layout.support_simple_spinner_dropdown_item,
+                            listSpinnerKota
+                        )
 
-                            val listKota : List<Kota> = data[p2].listkota!!
+                        adapterKota.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        spKota.setAdapter(adapterKota)
 
-                            val listSpinnerKota = ArrayList<String>()
-                            for(i in listKota.indices){
-                                listSpinnerKota.add(listKota[i].type!!+ " " + listKota[i].kota!!)
-                            }
-
-                            val adapterKota = ArrayAdapter(
-                                applicationContext, R.layout.support_simple_spinner_dropdown_item,
-                                listSpinnerKota
-                            )
-
-                            adapterKota.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                            spKota.adapter = adapterKota
-
-                            spKota.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                                override fun onNothingSelected(p0: AdapterView<*>?) {
-                                    //nothing
-                                }
-
-                                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                                    idKota = listKota[p2].id_kota
-                                    //Toast.makeText(context, idKota, Toast.LENGTH_SHORT).show()
-                                }
-
-                            }
-
+                        spKota.setOnItemSelectedListener { view, position, id, item ->
+                            idKota = listKota[position].id_kota
+                            //Toast.makeText(context, idKota.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                     }
+
+//                    spProvinsi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//                        override fun onNothingSelected(p0: AdapterView<*>?) {
+//                            //nothing
+//                        }
+//
+//                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                            idProvinsi = data[p2].id_provinsi
+//                            //Toast.makeText(context, idProvinsi, Toast.LENGTH_SHORT).show()
+//
+//                            val listKota : List<Kota> = data[p2].listkota!!
+//
+//                            val listSpinnerKota = ArrayList<String>()
+//                            for(i in listKota.indices){
+//                                listSpinnerKota.add(listKota[i].type!!+ " " + listKota[i].kota!!)
+//                            }
+//
+//                            val adapterKota = ArrayAdapter(
+//                                applicationContext, R.layout.support_simple_spinner_dropdown_item,
+//                                listSpinnerKota
+//                            )
+//
+//                            adapterKota.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//                            spKota.adapter = adapterKota
+//
+//                            spKota.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//                                override fun onNothingSelected(p0: AdapterView<*>?) {
+//                                    //nothing
+//                                }
+//
+//                                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                                    idKota = listKota[p2].id_kota
+//                                    //Toast.makeText(context, idKota, Toast.LENGTH_SHORT).show()
+//                                }
+//
+//                            }
+//
+//                        }
+//
+//                    }
 
                 }else{
                     Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()

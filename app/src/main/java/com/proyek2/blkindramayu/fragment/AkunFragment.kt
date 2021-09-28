@@ -18,6 +18,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jaredrummler.materialspinner.MaterialSpinner
 import com.proyek2.blkindramayu.R
 import com.proyek2.blkindramayu.activity.BerandaActivity
 import com.proyek2.blkindramayu.activity.LoginActivity
@@ -31,6 +32,7 @@ import kotlinx.android.synthetic.main.fragment_akun.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.POST
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -79,10 +81,15 @@ class AkunFragment : Fragment() {
         dialogPassword = Dialog(context!!)
         dialogMinat  = Dialog(context!!)
 
-        loading()
-        hideComponent()
+        if(savedInstanceState == null){
+            loading()
+            hideComponent()
+            setData(member)
+        }
 
-        setData(member)
+//        loading()
+//        hideComponent()
+//        setData(member)
 
         btnLogout.setOnClickListener {
             alert()
@@ -280,13 +287,13 @@ class AkunFragment : Fragment() {
             val etNIK = dialogDataDiri.findViewById<EditText>(R.id.etNIK)
             val etUsername = dialogDataDiri.findViewById<EditText>(R.id.etUsername)
             val etNamaLengkap = dialogDataDiri.findViewById<EditText>(R.id.etNama)
-            val spTmptLahir = dialogDataDiri.findViewById<Spinner>(R.id.spTempatLahir)
+            val spTmptLahir = dialogDataDiri.findViewById<MaterialSpinner>(R.id.spTempatLahir)
             val btnKalender = dialogDataDiri.findViewById<Button>(R.id.btnTglLahir)
             val tvTglLahir = dialogDataDiri.findViewById<TextView>(R.id.tvTglLahir)
             val rgJK = dialogDataDiri.findViewById<RadioGroup>(R.id.rbGroupJk)
             val rbL = dialogDataDiri.findViewById<RadioButton>(R.id.rbL)
             val rbP = dialogDataDiri.findViewById<RadioButton>(R.id.rbP)
-            val spPendTerakhir = dialogDataDiri.findViewById<Spinner>(R.id.spPendidikan)
+            val spPendTerakhir = dialogDataDiri.findViewById<MaterialSpinner>(R.id.spPendidikan)
             val etThnLulus = dialogDataDiri.findViewById<EditText>(R.id.etThnLulus)
             val etNoKontak = dialogDataDiri.findViewById<EditText>(R.id.etNoTelp)
             val etEmail = dialogDataDiri.findViewById<EditText>(R.id.etEmail)
@@ -295,6 +302,7 @@ class AkunFragment : Fragment() {
 
             date(btnKalender, tvTglLahir)
             getKota(spTmptLahir, member?.get(0)?.id_kotalahir!!)
+            tmptLahir = member[0]!!.id_kotalahir!!
 
             if(member[0]?.pend_terakhir != null){ pendidikanTerakhir(spPendTerakhir, member[0]?.pend_terakhir) }else{ pendidikanTerakhir(spPendTerakhir, member[0]?.pend_terakhir) }
             if(member[0]?.thn_ijazah != null){ etThnLulus.setText(member[0]?.thn_ijazah.toString()) }
@@ -318,7 +326,12 @@ class AkunFragment : Fragment() {
                 val radioButton = dialogDataDiri.findViewById<RadioButton>(selectedJK!!)
                 jk = radioButton?.text.toString()
             }
+
             validThn(etThnLulus)
+            if(etThnLulus.text.isNotEmpty()){
+                validThnLulus = true
+            }
+
             tvJudul.text = "Ubah Data Diri"
             btnClose.setOnClickListener { dialogDataDiri.dismiss() }
             btnUpdate.setOnClickListener {
@@ -338,6 +351,16 @@ class AkunFragment : Fragment() {
                         val noKontak = etNoKontak.text.toString()
                         val email = etEmail.text.toString()
 
+//                        Toast.makeText(context, nik, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, username, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, nama, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, tmptLahir.toString(), Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, tglLahir, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, jk, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, pendidikan, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, thnLulus, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, noKontak, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, email, Toast.LENGTH_SHORT).show()
 
                         loading()
                         Handler().postDelayed({
@@ -346,16 +369,6 @@ class AkunFragment : Fragment() {
                     }
                 }
 
-//                Toast.makeText(context, nik, Toast.LENGTH_SHORT).show()
-//                Toast.makeText(context, username, Toast.LENGTH_SHORT).show()
-//                Toast.makeText(context, nama, Toast.LENGTH_SHORT).show()
-//                Toast.makeText(context, tmptLahir, Toast.LENGTH_SHORT).show()
-//                Toast.makeText(context, tglLahir, Toast.LENGTH_SHORT).show()
-//                Toast.makeText(context, jk, Toast.LENGTH_SHORT).show()
-//                Toast.makeText(context, pendidikan, Toast.LENGTH_SHORT).show()
-//                Toast.makeText(context, thnLulus, Toast.LENGTH_SHORT).show()
-//                Toast.makeText(context, noKontak, Toast.LENGTH_SHORT).show()
-//                Toast.makeText(context, email, Toast.LENGTH_SHORT).show()
             }
 
             dialogDataDiri.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -392,7 +405,7 @@ class AkunFragment : Fragment() {
         }
     }
 
-    private fun getKota(spTempatLahir : Spinner, id : Int){
+    private fun getKota(spTempatLahir : MaterialSpinner, id : Int){
         NetworkConfig().api().getKota().enqueue(object : Callback<List<Kota>>{
             override fun onFailure(call: Call<List<Kota>>, t: Throwable) {
                 Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
@@ -413,20 +426,25 @@ class AkunFragment : Fragment() {
                     )
 
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    spTempatLahir.adapter = adapter
-                    spTempatLahir.setSelection(id-1)
+                    spTempatLahir.setAdapter(adapter)
+                    spTempatLahir.selectedIndex = id-1
 
-                    spTempatLahir.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                        override fun onNothingSelected(p0: AdapterView<*>?) {
-                            //nothing
-                        }
-
-                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                            tmptLahir = data[p2].id_kota
-                            //Toast.makeText(context, tmptLahir, Toast.LENGTH_SHORT).show()
-                        }
-
+                    spTempatLahir.setOnItemSelectedListener { view, position, id, item ->
+                        tmptLahir = data[position].id_kota
+//                      //Toast.makeText(context, tmptLahir, Toast.LENGTH_SHORT).show()
                     }
+
+//                    spTempatLahir.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//                        override fun onNothingSelected(p0: AdapterView<*>?) {
+//                            //nothing
+//                        }
+//
+//                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                            tmptLahir = data[p2].id_kota
+//                            //Toast.makeText(context, tmptLahir, Toast.LENGTH_SHORT).show()
+//                        }
+//
+//                    }
 
 
                 }else{
@@ -438,7 +456,7 @@ class AkunFragment : Fragment() {
 
     }
 
-    private fun pendidikanTerakhir(spPendTerakhir : Spinner, pend : String? = null){
+    private fun pendidikanTerakhir(spPendTerakhir : MaterialSpinner, pend : String? = null){
         val listPendidikan = ArrayList<String>()
         listPendidikan.add("SD/MI")
         listPendidikan.add("SMP/MTs")
@@ -453,25 +471,31 @@ class AkunFragment : Fragment() {
         )
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spPendTerakhir.adapter = adapter
+        spPendTerakhir.setAdapter(adapter)
 
         for(i in listPendidikan.indices){
             if(listPendidikan[i] == pend){
-                spPendTerakhir.setSelection(i)
+                spPendTerakhir.selectedIndex = i
             }
         }
 
-        spPendTerakhir.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                //nothing
-            }
+        pendidikan = listPendidikan[0]
 
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                pendidikan = listPendidikan[p2]
-                //Toast.makeText(context, pendidikan, Toast.LENGTH_SHORT).show()
-            }
-
+        spPendTerakhir.setOnItemSelectedListener { view, position, id, item ->
+            pendidikan = listPendidikan[position]
+             //Toast.makeText(context, pendidikan, Toast.LENGTH_SHORT).show()
         }
+//        spPendTerakhir.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//                //nothing
+//            }
+//
+//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                pendidikan = listPendidikan[p2]
+//                //Toast.makeText(context, pendidikan, Toast.LENGTH_SHORT).show()
+//            }
+//
+//        }
     }
 
     private fun prosesUpdateDataDiri(nik : String, username : String, nama : String, tmptLahir : Int, tglLahir : String, jk : String, pend : String, thnLulus : Int, noKontak : String, email : String, dialog: Dialog){
@@ -499,7 +523,7 @@ class AkunFragment : Fragment() {
     private fun updateUkuran(member: List<Member?>?){
         editUkuran.setOnClickListener {
             dialogUkuran.setContentView(R.layout.update_ukuran)
-            val spUkuranSepatu = dialogUkuran.findViewById<Spinner>(R.id.spUkuranSepatu)
+            val spUkuranSepatu = dialogUkuran.findViewById<MaterialSpinner>(R.id.spUkuranSepatu)
             val rgUkuranBaju = dialogUkuran.findViewById<RadioGroup>(R.id.rbGroupBaju)
             val tvJudul = dialogUkuran.findViewById<TextView>(R.id.tvJudul)
             val s = dialogUkuran.findViewById<RadioButton>(R.id.S)
@@ -532,11 +556,17 @@ class AkunFragment : Fragment() {
                 ukuranBaju = radioButton?.text.toString()
             }
 
+
+
             btnUpdate.setOnClickListener {
                 loading()
                 Handler().postDelayed({
                     prosesUpdateUkuran(username!!, ukuranBaju, ukuranSepatu!!, dialogUkuran)
                 }, 2000)
+
+//                Toast.makeText(context, username!!, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, ukuranBaju, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, ukuranSepatu.toString(), Toast.LENGTH_SHORT).show()
             }
 
             btnClose.setOnClickListener {
@@ -549,7 +579,7 @@ class AkunFragment : Fragment() {
             dialogUkuran.show()
         }
     }
-    private fun ukuranSepatu(spUkuranSepatu : Spinner, ukuran : Int? = null){
+    private fun ukuranSepatu(spUkuranSepatu : MaterialSpinner, ukuran : Int? = null){
         val listUkuran = ArrayList<Int>()
         for(i in 30..50){
             listUkuran.add(i)
@@ -561,25 +591,31 @@ class AkunFragment : Fragment() {
         )
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spUkuranSepatu.adapter = adapter
+        spUkuranSepatu.setAdapter(adapter)
 
         for(i in listUkuran.indices){
             if(listUkuran[i] == ukuran){
-                spUkuranSepatu.setSelection(i)
+                spUkuranSepatu.selectedIndex = i
+                ukuranSepatu = listUkuran[i]
             }
         }
 
-        spUkuranSepatu.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                //nothing
-            }
-
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                ukuranSepatu = listUkuran[p2]
-                //Toast.makeText(context, ukuranSepatu.toString(), Toast.LENGTH_SHORT).show()
-            }
-
+        spUkuranSepatu.setOnItemSelectedListener { view, position, id, item ->
+            ukuranSepatu = listUkuran[position]
+            //Toast.makeText(context, ukuranSepatu.toString(), Toast.LENGTH_SHORT).show()
         }
+
+//        spUkuranSepatu.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//                //nothing
+//            }
+//
+//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                ukuranSepatu = listUkuran[p2]
+//                //Toast.makeText(context, ukuranSepatu.toString(), Toast.LENGTH_SHORT).show()
+//            }
+//
+//        }
 
     }
     private fun prosesUpdateUkuran(username : String, baju : String, sepatu : Int, dialog: Dialog){
@@ -608,8 +644,8 @@ class AkunFragment : Fragment() {
         editAlamat.setOnClickListener {
             dialogAlamat.setContentView(R.layout.update_alamat)
             val tvJudul = dialogAlamat.findViewById<TextView>(R.id.tvJudul)
-            val spProvinsi = dialogAlamat.findViewById<Spinner>(R.id.spProvinsi)
-            val spKota = dialogAlamat.findViewById<Spinner>(R.id.spKota)
+            val spProvinsi = dialogAlamat.findViewById<MaterialSpinner>(R.id.spProvinsi)
+            val spKota = dialogAlamat.findViewById<MaterialSpinner>(R.id.spKota)
             val etAlamat = dialogAlamat.findViewById<EditText>(R.id.etAlamatLengkap)
             val etKodepos = dialogAlamat.findViewById<EditText>(R.id.etKodePos)
             val btnUpdate = dialogAlamat.findViewById<Button>(R.id.btnUpdate)
@@ -617,7 +653,10 @@ class AkunFragment : Fragment() {
             val username = member?.get(0)?.username
 
             tvJudul.text = "Ubah Data Alamat"
-            getProvinsi(spProvinsi, spKota, member?.get(0)?.id_provinsi!!, member[0]?.id_kota!!)
+            idProvinsi = member?.get(0)?.id_provinsi!!
+            tmptLahir = member[0]?.id_kota!!
+
+            getProvinsi(spProvinsi, spKota, idProvinsi!!, tmptLahir!!)
 
             etAlamat.setText(member[0]?.alamat_lengkap)
             etKodepos.setText(member[0]?.kodepos.toString())
@@ -630,8 +669,14 @@ class AkunFragment : Fragment() {
                     else -> {
                         val alamatLengkap = etAlamat.text.toString()
                         val kodepos = etKodepos.text.toString()
-                        loading()
 
+//                        Toast.makeText(context, username!!, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, idProvinsi!!.toString(), Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, tmptLahir!!.toString(), Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, alamatLengkap, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, kodepos, Toast.LENGTH_SHORT).show()
+
+                        loading()
                         Handler().postDelayed({
                             prosesUpdateAlamat(username!!, alamatLengkap, idProvinsi!!, tmptLahir!!, kodepos.toInt(), dialogAlamat)
                         }, 2000)
@@ -646,7 +691,7 @@ class AkunFragment : Fragment() {
         }
     }
 
-    private fun getProvinsi(spProvinsi : Spinner, spKota : Spinner, id : Int, idkota : Int){
+    private fun getProvinsi(spProvinsi : MaterialSpinner, spKota : MaterialSpinner, id : Int, idkota : Int){
         NetworkConfig().api().getProvinsi().enqueue(object : Callback<List<Provinsi>>{
             override fun onFailure(call: Call<List<Provinsi>>, t: Throwable) {
                 Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
@@ -667,53 +712,128 @@ class AkunFragment : Fragment() {
                     )
 
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    spProvinsi.adapter = adapter
-                    spProvinsi.setSelection(id-1)
+                    spProvinsi.setAdapter(adapter)
+                    spProvinsi.selectedIndex = id-1
 
-                    spProvinsi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                        override fun onNothingSelected(p0: AdapterView<*>?) {
-                            //nothing
+                    //Toast.makeText(context, id.toString(), Toast.LENGTH_LONG).show()
+
+                    val listKota : List<Kota> = data[id-1].listkota!!
+                    //val listKota : List<Kota> = data[id].listkota!!
+
+                    val listSpinnerKota = ArrayList<String>()
+                    for(i in listKota.indices){
+                        listSpinnerKota.add(listKota[i].type!!+ " " + listKota[i].kota!!)
+                    }
+
+                    val adapterKota = ArrayAdapter(
+                        context!!.applicationContext, R.layout.support_simple_spinner_dropdown_item,
+                        listSpinnerKota
+                    )
+
+                    adapterKota.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spKota.setAdapter(adapterKota)
+
+                    for(i in listKota.indices){
+                        if(listKota[i].id_kota == idkota){
+                            spKota.selectedIndex = i
+                            tmptLahir = listKota[i].id_kota
+                        }
+                    }
+
+                    spKota.setOnItemSelectedListener { view, position, id, item ->
+                        tmptLahir = listKota[position].id_kota
+                        //Toast.makeText(context, tmptLahir.toString(), Toast.LENGTH_SHORT).show()
+                    }
+
+                    spProvinsi.setOnItemSelectedListener { view, position, id, item ->
+                        idProvinsi = data[position].id_provinsi
+
+                        val listKota : List<Kota> = data[position].listkota!!
+
+//                        Toast.makeText(context, listKota.toString(), Toast.LENGTH_LONG).show()
+//                        Toast.makeText(context, listKota[position].kota, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, listKota[0].kota, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, listKota[1].kota, Toast.LENGTH_SHORT).show()
+                        tmptLahir = listKota[0].id_kota
+
+                        val listSpinnerKota = ArrayList<String>()
+//                        for(i in listKota.indices){
+//                            listSpinnerKota.add(listKota[i].type!!+ " " + listKota[i].kota!!)
+//                        }
+
+                        //cara lain ngefor
+                        for((index, value) in listKota.withIndex()){
+                            //listSpinnerKota.add(listKota[index].type!!+ " " + listKota[index].kota!!)
+                            listSpinnerKota.add(value.type!! + " " + value.kota)
+                            //Toast.makeText(context, value.type + " " + value.kota, Toast.LENGTH_SHORT).show()
                         }
 
-                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                            idProvinsi = data[p2].id_provinsi
-                            //Toast.makeText(context, tmptLahir, Toast.LENGTH_SHORT).show()
+                        val adapterKota = ArrayAdapter(
+                            context!!.applicationContext, R.layout.support_simple_spinner_dropdown_item,
+                            listSpinnerKota
+                        )
 
-                            val listKota : List<Kota> = data[p2].listkota!!
+                        adapterKota.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        spKota.setAdapter(adapterKota)
 
-                            val listSpinnerKota = ArrayList<String>()
-                            for(i in listKota.indices){
-                                listSpinnerKota.add(listKota[i].type!!+ " " + listKota[i].kota!!)
-                            }
+//                        for(i in listKota.indices){
+//                            if(listKota[i].id_kota == idkota){
+//                                spKota.selectedIndex = i
+//                                tmptLahir = listKota[i].id_kota
+//                            }
+//                        }
 
-                            val adapterKota = ArrayAdapter(
-                                context!!.applicationContext, R.layout.support_simple_spinner_dropdown_item,
-                                listSpinnerKota
-                            )
-
-                            adapterKota.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                            spKota.adapter = adapterKota
-
-                            for(i in listKota.indices){
-                                if(listKota[i].id_kota == idkota){
-                                    spKota.setSelection(i)
-                                }
-                            }
-
-                            spKota.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                                override fun onNothingSelected(p0: AdapterView<*>?) {
-                                    //nothing
-                                }
-
-                                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                                    tmptLahir = listKota[p2].id_kota
-                                    //Toast.makeText(context, tmptLahir.toString(), Toast.LENGTH_SHORT).show()
-                                }
-
-                            }
+                        spKota.setOnItemSelectedListener { view, position, id, item ->
+                            tmptLahir = listKota[position].id_kota
+                            //Toast.makeText(context, tmptLahir.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                     }
+
+//                    spProvinsi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//                        override fun onNothingSelected(p0: AdapterView<*>?) {
+//                            //nothing
+//                        }
+//
+//                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                            idProvinsi = data[p2].id_provinsi
+//                            //Toast.makeText(context, tmptLahir, Toast.LENGTH_SHORT).show()
+//
+//                            val listKota : List<Kota> = data[p2].listkota!!
+//
+//                            val listSpinnerKota = ArrayList<String>()
+//                            for(i in listKota.indices){
+//                                listSpinnerKota.add(listKota[i].type!!+ " " + listKota[i].kota!!)
+//                            }
+//
+//                            val adapterKota = ArrayAdapter(
+//                                context!!.applicationContext, R.layout.support_simple_spinner_dropdown_item,
+//                                listSpinnerKota
+//                            )
+//
+//                            adapterKota.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//                            spKota.adapter = adapterKota
+//
+//                            for(i in listKota.indices){
+//                                if(listKota[i].id_kota == idkota){
+//                                    spKota.setSelection(i)
+//                                }
+//                            }
+//
+//                            spKota.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//                                override fun onNothingSelected(p0: AdapterView<*>?) {
+//                                    //nothing
+//                                }
+//
+//                                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                                    tmptLahir = listKota[p2].id_kota
+//                                    //Toast.makeText(context, tmptLahir.toString(), Toast.LENGTH_SHORT).show()
+//                                }
+//
+//                            }
+//                        }
+//
+//                    }
                 }else{
                     Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
                 }
@@ -1029,4 +1149,7 @@ class AkunFragment : Fragment() {
         loading.show()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
 }

@@ -20,7 +20,8 @@ class PagerAdapterProfilLembaga(val profilList : List<DataProfilLembaga>, val co
         val imgLembaga = view.findViewById<ImageView>(R.id.imgProfilLembaga)
 
         Glide.with(context)
-            .load(BuildConfig.IMAGE + profil.image)
+            //.load(BuildConfig.IMAGE + profil.image)
+            .load(BuildConfig.CLOUDIMAGES + profil.image)
             .into(imgLembaga)
 
         container.addView(view, 0)

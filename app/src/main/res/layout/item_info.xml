@@ -32,12 +32,13 @@
                     android:layout_below="@id/imgFoto"
                     android:id="@+id/tvJudul"
                     android:textStyle="bold"
-                    android:textColor="@color/colorLightBlue"
+                    android:textColor="@color/colorBlue"
                     android:text="Berita"
                     android:singleLine="true"
                     android:paddingTop="5dp"
                     android:layout_marginLeft="10dp"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.proyek2.blkindramayu.BuildConfig
@@ -26,7 +27,8 @@ class AdapterInfo(infoLists : List<DataInfo>, val context : Context, val tipe : 
             itemView.tvTgl.text = get.tgl_upload
 
             Glide.with(context)
-                .load("${BuildConfig.IMAGE}/konten/${get.foto}")
+                //.load("${BuildConfig.IMAGE}/konten/${get.foto}")
+                .load("${BuildConfig.CLOUDIMAGES}/${get.foto}")
                 .into(itemView.imgFoto)
 
             itemView.cvInfo.setOnClickListener {

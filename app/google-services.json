@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "185938953893",
+    "firebase_url": "https://blk-indramayu.firebaseio.com",
+    "project_id": "blk-indramayu",
+    "storage_bucket": "blk-indramayu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185938953893:android:4349bf2eaac9c2d0cd6f4c",
+        "android_client_info": {
+          "package_name": "com.proyek2.blkindramayu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185938953893-ns299d6sp2cf9ji48bnkb5r6dep3oedo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.proyek2.blkindramayu",
+            "certificate_hash": "6b6552e4fa12472cf3e1d1a5b2d74304a769cec4"
+          }
+        },
+        {
+          "client_id": "185938953893-jr2nkl9cnf0uiib597990p44atm5flh9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2kN2nVg3zF-AwTIpK2xjC4Q2ir3T7abo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185938953893-jr2nkl9cnf0uiib597990p44atm5flh9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

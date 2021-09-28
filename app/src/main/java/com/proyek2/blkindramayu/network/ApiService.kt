@@ -4,17 +4,29 @@ import com.proyek2.blkindramayu.model.*
 import com.proyek2.blkindramayu.weather.Result
 import retrofit2.Call
 import retrofit2.http.*
+import retrofit2.http.Url
+import okhttp3.ResponseBody
+import retrofit2.http.GET
+import retrofit2.http.Streaming
+
+
 
 interface ApiService {
 
     @GET("getBerita")
     fun getBerita(): Call<Info>
 
+    @GET("getPengumuman")
+    fun getPengumuman(): Call<Info>
+
     @GET("getLoker")
     fun getLoker(): Call<Info>
 
     @GET("getSemuaBerita")
     fun getSemuaBerita(): Call<Info>
+
+    @GET("getSemuaPengumuman")
+    fun getSemuaPengumuman(): Call<Info>
 
     @GET("getSemuaLoker")
     fun getSemuaLoker(): Call<Info>
@@ -153,4 +165,30 @@ interface ApiService {
     fun getSemuaLokerByMinat(
         @Field("listMinat[]") listMinat: ArrayList<Int>
     ): Call<Info>
+
+    @GET("getPelatihan")
+    fun getPelatihan(): Call<Pelatihan>
+
+    @FormUrlEncoded
+    @POST("daftarPelatihan")
+    fun daftarPelatihan(
+        @Field("kd_skema") kdSkema : Int,
+        @Field("kd_pengguna") kdPenguna : Int
+    ) : Call<Res>
+
+    @FormUrlEncoded
+    @POST("getPelatihanByMember")
+    fun getPelatihanByMember(
+        @Field("kd_pengguna") kdPengguna: Int
+    ) : Call<Pelatihan>
+
+    @FormUrlEncoded
+    @POST("getSertifikatMember")
+    fun getSertifikatMember(
+        @Field("kd_pendaftaran") kdPendaftaran : Int
+    ) : Call<Sertifikat>
+
+    @Streaming
+    @GET
+    fun downloadFileWithDynamicUrlAsync(@Url fileUrl: String): Call<ResponseBody>
 }

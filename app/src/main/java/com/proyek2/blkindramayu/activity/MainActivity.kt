@@ -24,9 +24,9 @@ class MainActivity : AppCompatActivity() {
 
         appDB = AppDataBase.getInstance(this)
 
-        val id = appDB?.memberDao()?.getMember()
+        //val id = appDB?.memberDao()?.getMember()
 
-        Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
 
         animationUtils()
         loadingProgressBar()

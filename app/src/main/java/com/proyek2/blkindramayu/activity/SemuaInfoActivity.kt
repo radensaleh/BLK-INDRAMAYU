@@ -58,7 +58,7 @@ class SemuaInfoActivity : AppCompatActivity() {
         tvHeader.startAnimation(leftRight)
         tvCari.startAnimation(leftRight)
         searchView.startAnimation(leftRight)
-        btnDate.startAnimation(rightLeft)
+        //btnDate.startAnimation(rightLeft)
         rvSemuaInfo.startAnimation(downToup)
 
         searchView.queryHint = "Judul/Tanggal"
@@ -82,13 +82,20 @@ class SemuaInfoActivity : AppCompatActivity() {
                 if(member != null){ kdPengguna?.let { getMinatMember(it) } }
 
             }
-            else -> {
+            3 -> {
                 tvHeader.text = " SEMUA LOKER"
                 tvCari.text = " CARI LOKERMU SEKARANG!"
                 Glide.with(this)
                     .load(R.drawable.loker)
                     .into(imgHeader)
                 getSemuaLoker()
+            } else -> {
+                tvHeader.text = " SEMUA PENGUMUMAN"
+                tvCari.text = " CARI PENGUMUMANMU SEKARANG!"
+                Glide.with(this)
+                    .load(R.drawable.pengumuman)
+                    .into(imgHeader)
+                getSemuaPengumuman()
             }
         }
     }
@@ -117,6 +124,7 @@ class SemuaInfoActivity : AppCompatActivity() {
     private fun getSemuaLokerByMinat(listMinat : ArrayList<Int>){
         NetworkConfig().api().getSemuaLokerByMinat(listMinat).enqueue(object : Callback<Info>{
             override fun onFailure(call: Call<Info>, t: Throwable) {
+                imgKosong.visibility = View.GONE
                 tvDataKosong.visibility = View.GONE
                 refreshLayout.isRefreshing = false
                 Toast.makeText(this@SemuaInfoActivity, t.message, Toast.LENGTH_SHORT).show()
@@ -127,8 +135,10 @@ class SemuaInfoActivity : AppCompatActivity() {
                 if(response.isSuccessful){
                     val data = response.body()?.data
                     if(data?.isEmpty()!!){
+                        imgKosong.visibility = View.VISIBLE
                         tvDataKosong.visibility = View.VISIBLE
                     }else{
+                        imgKosong.visibility = View.GONE
                         tvDataKosong.visibility = View.GONE
                         rvSemuaInfo.layoutManager = GridLayoutManager(this@SemuaInfoActivity, 2)
                         val adapter =
@@ -171,8 +181,10 @@ class SemuaInfoActivity : AppCompatActivity() {
                 if(response.isSuccessful){
                     val data = response.body()?.data
                     if(data?.isEmpty()!!){
+                        imgKosong.visibility = View.VISIBLE
                         tvDataKosong.visibility = View.VISIBLE
                     }else{
+                        imgKosong.visibility = View.GONE
                         tvDataKosong.visibility = View.GONE
                         rvSemuaInfo.layoutManager = GridLayoutManager(this@SemuaInfoActivity, 2)
                         val adapter =
@@ -195,6 +207,55 @@ class SemuaInfoActivity : AppCompatActivity() {
                         })
                     }
                 }else{
+                    imgKosong.visibility = View.GONE
+                    tvDataKosong.visibility = View.GONE
+                    refreshLayout.isRefreshing = false
+                    Toast.makeText(this@SemuaInfoActivity, response.message(), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        })
+    }
+
+    private fun getSemuaPengumuman(){
+        NetworkConfig().api().getSemuaPengumuman().enqueue(object : Callback<Info>{
+            override fun onFailure(call: Call<Info>, t: Throwable) {
+                imgKosong.visibility = View.GONE
+                tvDataKosong.visibility = View.GONE
+                refreshLayout.isRefreshing = false
+                Toast.makeText(this@SemuaInfoActivity, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<Info>, response: Response<Info>) {
+                refreshLayout.isRefreshing = false
+                if(response.isSuccessful){
+                    val data = response.body()?.data
+                    if(data?.isEmpty()!!){
+                        imgKosong.visibility = View.VISIBLE
+                        tvDataKosong.visibility = View.VISIBLE
+                    }else{
+                        imgKosong.visibility = View.GONE
+                        tvDataKosong.visibility = View.GONE
+                        rvSemuaInfo.layoutManager = GridLayoutManager(this@SemuaInfoActivity, 2)
+                        val adapter = AdapterInfo(data as List<DataInfo>, this@SemuaInfoActivity, 1)
+                        rvSemuaInfo.adapter = adapter
+
+                        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+                            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                            override fun onQueryTextSubmit(p0: String?): Boolean {
+                                p0?.let { adapter.filter(it) }
+                                return false
+                            }
+
+                            override fun onQueryTextChange(p0: String?): Boolean {
+                                p0?.let { adapter.filter(it) }
+                                return false
+                            }
+
+                        })
+                    }
+                }else{
+                    imgKosong.visibility = View.GONE
                     tvDataKosong.visibility = View.GONE
                     refreshLayout.isRefreshing = false
                     Toast.makeText(this@SemuaInfoActivity, response.message(), Toast.LENGTH_SHORT).show()
@@ -207,6 +268,7 @@ class SemuaInfoActivity : AppCompatActivity() {
     private fun getSemuaLoker(){
         NetworkConfig().api().getSemuaLoker().enqueue(object : Callback<Info>{
             override fun onFailure(call: Call<Info>, t: Throwable) {
+                imgKosong.visibility = View.GONE
                 tvDataKosong.visibility = View.GONE
                 refreshLayout.isRefreshing = false
                 Toast.makeText(this@SemuaInfoActivity, t.message, Toast.LENGTH_SHORT).show()
@@ -217,8 +279,10 @@ class SemuaInfoActivity : AppCompatActivity() {
                 if(response.isSuccessful){
                     val data = response.body()?.data
                     if(data?.isEmpty()!!){
+                        imgKosong.visibility = View.VISIBLE
                         tvDataKosong.visibility = View.VISIBLE
                     }else{
+                        imgKosong.visibility = View.GONE
                         tvDataKosong.visibility = View.GONE
                         rvSemuaInfo.layoutManager = GridLayoutManager(this@SemuaInfoActivity, 2)
                         val adapter =
@@ -241,6 +305,7 @@ class SemuaInfoActivity : AppCompatActivity() {
                         })
                     }
                 }else{
+                    imgKosong.visibility = View.GONE
                     tvDataKosong.visibility = View.GONE
                     refreshLayout.isRefreshing = false
                     Toast.makeText(this@SemuaInfoActivity, response.message(), Toast.LENGTH_SHORT).show()

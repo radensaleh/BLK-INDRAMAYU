@@ -34,7 +34,8 @@
                 android:textSize="18sp"
                 android:text="Judul"
                 android:textColor="@color/colorLightBlue"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                tools:ignore="RtlCompat" />
 
             <TextView
                 android:layout_marginLeft="20dp"
@@ -44,12 +45,13 @@
                 android:layout_marginTop="15dp"
                 android:textSize="16sp"/>
 
-            <Spinner
+            <com.jaredrummler.materialspinner.MaterialSpinner
                 android:id="@+id/spProvinsi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                app:ms_background_color="@color/colorLightLightGray"
                 android:layout_marginTop="5dp" />
 
             <TextView
@@ -60,12 +62,13 @@
                 android:layout_marginTop="20dp"
                 android:textSize="16sp"/>
 
-            <Spinner
+            <com.jaredrummler.materialspinner.MaterialSpinner
                 android:id="@+id/spKota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                app:ms_background_color="@color/colorLightLightGray"
                 android:layout_marginTop="5dp"/>
 
 

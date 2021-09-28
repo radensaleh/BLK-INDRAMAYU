@@ -1,6 +1,7 @@
 package com.proyek2.blkindramayu.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,10 @@ import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import com.proyek2.blkindramayu.BuildConfig
 import com.proyek2.blkindramayu.R
+import com.proyek2.blkindramayu.activity.DetailInfoActivity
 import com.proyek2.blkindramayu.model.DataPoster
 
-class PagerAdapterSlide(val context : Context, val posterList : List<DataPoster>) : PagerAdapter(){
+class PagerAdapterSlide(val context : Context, val posterList : List<DataPoster>, val tipe : Int) : PagerAdapter(){
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = LayoutInflater.from(container.context).inflate(R.layout.item_slide, container, false)
@@ -30,21 +32,30 @@ class PagerAdapterSlide(val context : Context, val posterList : List<DataPoster>
             cardView.visibility = View.GONE
 
             Glide.with(context)
-                .load("${BuildConfig.IMAGE}/konten/${poster.poster}")
+                //.load("${BuildConfig.IMAGE}/konten/${poster.poster}")
+                .load("${BuildConfig.CLOUDIMAGES}/${poster.poster}")
                 .into(imgPoster)
 
             container.addView(view, 0)
 
         }else{
 
-            val tvJudulPoster = view.findViewById<TextView>(R.id.tvJudulPoster)
-            val imgPoster     = view.findViewById<ImageView>(R.id.imgPoster)
+            val tvJudulPoster= view.findViewById<TextView>(R.id.tvJudulPoster)
+            val imgPoster   = view.findViewById<ImageView>(R.id.imgPoster)
+            val cvPoster     = view.findViewById<CardView>(R.id.cvPoster)
 
             tvJudulPoster.text = poster.judul
 
             Glide.with(context)
-                .load("${BuildConfig.IMAGE}/konten/${poster.poster}")
+                .load("${BuildConfig.CLOUDIMAGES}/${poster.poster}")
                 .into(imgPoster)
+
+            cvPoster.setOnClickListener {
+                val intent = Intent(context, DetailInfoActivity::class.java)
+                intent.putExtra("id", poster.id)
+                intent.putExtra("tipe", tipe)
+                context.startActivity(intent)
+            }
 
             container.addView(view, 0)
         }

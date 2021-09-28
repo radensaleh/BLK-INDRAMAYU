@@ -6,6 +6,7 @@
 
     <!--Custom-->
     <color name="colorWhite">#FFFF</color>
+    <color name="colorLightLightGray">#f7f7f7</color>
 
     <color name="colorLightBlue">#4fc3f7</color>
     <color name="colorBlue">#03a9f4</color>
